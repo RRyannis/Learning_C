@@ -1,24 +1,28 @@
 #include <stdio.h>
-int main()
-{
-int c, i, nwhite, nother;
-int ndigit[10];
-nwhite = nother = 0;
-for (i = 0; i < 10; ++i)
-ndigit[i] = 0;
-while ((c = getchar()) != EOF)
-if (c >= '0' && c <= '9')
-++ndigit[c-'0'];
-else if (c == ' ' || c == '\n' ||
-c == '\t')
-++nwhite;
-else
-++nother;
-printf("digits =");
-for (i = 0; i < 10; ++i)
-printf(" %d", ndigit[i]);
-printf(", white space = %d, other =%d\n",nwhite, nother);
-return 0;
+#include <string.h>
+
+int main() {
+    
+    char item[50] = "";
+    float price = 0.0f;
+    int quantity = 0;
+    char currency = '$';
+    float total = 0.0f;
+    
+    printf("What would you like to buy: ");
+    fgets(item, sizeof(item), stdin);
+    item[strlen(item) - 1] = 0;
+    printf("What is the price of the item: ");
+    scanf("%f", &price);
+    printf("How many would you like to buy: ");
+    scanf("%d", &quantity);
+
+    total = price * quantity;
+
+    printf("You have purchased %d %s for a total of %c%.2f\n", quantity, item, currency, total);
+
+
+    return 0;
 }
 
 
