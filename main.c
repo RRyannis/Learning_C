@@ -1,31 +1,61 @@
-/* count lines, words, and characters (like `wc`) */
+
 #include <stdio.h>
 
-#define IN   1  /* inside a word */
-#define OUT  0  /* outside a word */
+void squeeze(char s[], int c);
 
 int main(void)
 {
-    int c, nl, nw, nc, state;
-
-    state = OUT;
-    nl = nw = nc = 0;
-
-    while ((c = getchar()) != EOF) {
-        ++nc;
-        if (c == '\n')
-            ++nl;
-        if (c == ' ' || c == '\n' || c == '\t')
-            state = OUT;
-        else if (state == OUT) {
-            state = IN;
-            ++nw;
-        }
-    }
-
-    printf("lines = %d, words = %d, chars = %d\n", nl, nw, nc);
+    char line[] = "hello   world,   this   has   extra   spaces";
+    printf("before: %s\n", line);
+    squeeze(line, ' ');
+    printf("after:  %s\n", line);
     return 0;
 }
+
+void squeeze(char s[], int c)
+{
+    int i, j;
+    int prev_was_c = 0;
+
+    for (i = j = 0; s[i] != '\0'; i++) {
+        if (s[i] == c) {
+            if (!prev_was_c)
+                s[j++] = s[i];
+            prev_was_c = 1;
+        } else {
+            s[j++] = s[i];
+            prev_was_c = 0;
+        }
+    }
+    s[j] = '\0';
+}// /* count lines, words, and characters (like `wc`) */
+// #include <stdio.h>
+
+// #define IN   1  /* inside a word */
+// #define OUT  0  /* outside a word */
+
+// int main(void)
+// {
+//     int c, nl, nw, nc, state;
+
+//     state = OUT;
+//     nl = nw = nc = 0;
+
+//     while ((c = getchar()) != EOF) {
+//         ++nc;
+//         if (c == '\n')
+//             ++nl;
+//         if (c == ' ' || c == '\n' || c == '\t')
+//             state = OUT;
+//         else if (state == OUT) {
+//             state = IN;
+//             ++nw;
+//         }
+//     }
+
+//     printf("lines = %d, words = %d, chars = %d\n", nl, nw, nc);
+//     return 0;
+// }
 
 // int main() {
     
