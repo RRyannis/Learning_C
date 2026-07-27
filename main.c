@@ -1,85 +1,53 @@
-
 #include <stdio.h>
+#define MAXLINE 1000 /* maximum input line size */
 
-void squeeze(char s[], int c);
+int max = 0;                /* maximum length seen so far */
+char line[MAXLINE];         /* current input line */
+char longest[MAXLINE];     /* longest line saved here */
 
+int getLine(void);
+void copy(void);
+/* print longest input line; specialized
+version */
 int main(void)
 {
-    char line[] = "hello   world,   this   has   extra   spaces";
-    printf("before: %s\n", line);
-    squeeze(line, ' ');
-    printf("after:  %s\n", line);
-    return 0;
+	int len;
+
+	while ((len = getLine()) > 0) {
+		if (len > max) {
+			max = len;
+			copy();
+		}
+	}
+
+	if (max > 0) /* there was a line */
+		printf("%s", longest);
+
+	return 0;
 }
-
-void squeeze(char s[], int c)
+/* getline: specialized version */
+/* getLine: specialized version */
+int getLine(void)
 {
-    int i, j;
-    int prev_was_c = 0;
+int c, i;
+	for (i = 0; i < MAXLINE - 1 && (c = getchar()) != EOF && c != '\n'; ++i)
+		line[i] = c;
 
-    for (i = j = 0; s[i] != '\0'; i++) {
-        if (s[i] == c) {
-            if (!prev_was_c)
-                s[j++] = s[i];
-            prev_was_c = 1;
-        } else {
-            s[j++] = s[i];
-            prev_was_c = 0;
-        }
-    }
-    s[j] = '\0';
-}// /* count lines, words, and characters (like `wc`) */
-// #include <stdio.h>
+	if (c == '\n') {
+		line[i] = c;
+		++i;
+	}
 
-// #define IN   1  /* inside a word */
-// #define OUT  0  /* outside a word */
-
-// int main(void)
-// {
-//     int c, nl, nw, nc, state;
-
-//     state = OUT;
-//     nl = nw = nc = 0;
-
-//     while ((c = getchar()) != EOF) {
-//         ++nc;
-//         if (c == '\n')
-//             ++nl;
-//         if (c == ' ' || c == '\n' || c == '\t')
-//             state = OUT;
-//         else if (state == OUT) {
-//             state = IN;
-//             ++nw;
-//         }
-//     }
-
-//     printf("lines = %d, words = %d, chars = %d\n", nl, nw, nc);
-//     return 0;
-// }
-
-// int main() {
-    
-//     char item[50] = "";
-//     float price = 0.0f;
-//     int quantity = 0;
-//     char currency = '$';
-//     float total = 0.0f;
-    
-//     printf("What would you like to buy: ");
-//     fgets(item, sizeof(item), stdin);
-//     item[strlen(item) - 1] = 0;
-//     printf("What is the price of the item: ");
-//     scanf("%f", &price);
-//     printf("How many would you like to buy: ");
-//     scanf("%d", &quantity);
-
-//     total = price * quantity;
-
-//     printf("You have purchased %d %s for a total of %c%.2f\n", quantity, item, currency, total);
-
-
-//     return 0;
-// }
+	line[i] = '\0';
+	return i;
+}
+/* copy: specialized version */
+void copy(void)
+{
+    int i = 0;
+    while ((longest[i] = line[i]) != '\0')
+        ++i;
+}
 
 
 
