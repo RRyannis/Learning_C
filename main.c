@@ -22,21 +22,20 @@ int my_getline(char s[], int lim)
     i = 0;
     while (i < lim - 1) {
         c = getchar();
-        if (c == EOF)
-            break;
-        if (c == '\n')
-            break;
+        if (c == '\n') break;
+        if (c == EOF) break;
         s[i] = c;
-        ++i;
+        i++;
     }
+
     if (c == '\n' && i < lim - 1) {
         s[i] = c;
-        ++i;
+        i++;
     }
+
     s[i] = '\0';
     return i;
 }
-
 
 
 /* ============================================================
