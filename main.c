@@ -1,40 +1,44 @@
 #include <stdio.h>
+#include <ctype.h>
 
-#define MAXLINE 1000
-
-int my_getline(char s[], int lim);
+int htoi(char s[]);
 
 int main(void)
 {
-    char line[MAXLINE];
-    int len;
+    char tests[][10] = {"1A", "0x1A", "0X2f", "ff", "0x0", "abc123"};
+    int i;
 
-    while ((len = my_getline(line, MAXLINE)) > 0)
-        printf("read %d chars: %s", len, line);
+    for (i = 0; i < 6; i++)
+        printf("%-8s -> %d\n", tests[i], htoi(tests[i]));
 
     return 0;
 }
 
-int my_getline(char s[], int lim)
+int htoi(char s[])
 {
-    int c, i;
+    int i, n, hexdigit;
 
     i = 0;
-    while (i < lim - 1) {
-        c = getchar();
-        if (c == '\n') break;
-        if (c == EOF) break;
-        s[i] = c;
-        i++;
+    n = 0;
+
+    /* skip an optional 0x or 0X prefix */
+    if (s[0] == '0' && (s[1] == 'x' || s[1] == 'X'))
+        i = 2;
+
+    for (; s[i] != '\0'; i++) {
+        if (s[i] >= '0' && s[i] <= '9')
+            hexdigit = s[i] - '0';
+        else if (s[i] >= 'a' && s[i] <= 'f')
+            hexdigit = s[i] - 'a' + 10;
+        else if (s[i] >= 'A' && s[i] <= 'F')
+            hexdigit = s[i] - 'A' + 10;
+        else
+            break;   /* stop at first non-hex character */
+
+        n = n * 16 + hexdigit;
     }
 
-    if (c == '\n' && i < lim - 1) {
-        s[i] = c;
-        i++;
-    }
-
-    s[i] = '\0';
-    return i;
+    return n;
 }
 
 
