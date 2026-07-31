@@ -1,46 +1,27 @@
 #include <stdio.h>
-#include <ctype.h>
+#include <string.h>
 
-int htoi(char s[]);
+void reverse(char s[]);
 
 int main(void)
 {
-    char tests[][10] = {"1A", "0x1A", "0X2f", "ff", "0x0", "abc123"};
-    int i;
-
-    for (i = 0; i < 6; i++)
-        printf("%-8s -> %d\n", tests[i], htoi(tests[i]));
-
+    char str[] = "hello world";
+    printf("before: %s\n", str);
+    reverse(str);
+    printf("after:  %s\n", str);
     return 0;
 }
 
-int htoi(char s[])
+void reverse(char s[])
 {
-    int i, n, hexdigit;
+    int c, i, j;
 
-    i = 0;
-    n = 0;
-
-    /* skip an optional 0x or 0X prefix */
-    if (s[0] == '0' && (s[1] == 'x' || s[1] == 'X'))
-        i = 2;
-
-    for (; s[i] != '\0'; i++) {
-        if (s[i] >= '0' && s[i] <= '9')
-            hexdigit = s[i] - '0';
-        else if (s[i] >= 'a' && s[i] <= 'f')
-            hexdigit = s[i] - 'a' + 10;
-        else if (s[i] >= 'A' && s[i] <= 'F')
-            hexdigit = s[i] - 'A' + 10;
-        else
-            break;   /* stop at first non-hex character */
-
-        n = n * 16 + hexdigit;
+    for (i = 0, j = strlen(s) - 1; i < j; i++, j--) {
+        c = s[i];
+        s[i] = s[j];
+        s[j] = c;
     }
-
-    return n;
 }
-
 
 /* ============================================================
  * C TYPES CHEAT SHEET
