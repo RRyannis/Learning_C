@@ -1,26 +1,26 @@
 #include <stdio.h>
 #include <string.h>
 
-void reverse(char s[]);
+int atoi(char s[]);
 
 int main(void)
 {
-    char str[] = "hello world";
+    char str[] = "123";
     printf("before: %s\n", str);
-    reverse(str);
-    printf("after:  %s\n", str);
+    int result = atoi(str);
+    printf("after:  %d\n", result);
     return 0;
 }
 
-void reverse(char s[])
+int atoi(char s[])
 {
-    int c, i, j;
+    int i, n;
 
-    for (i = 0, j = strlen(s) - 1; i < j; i++, j--) {
-        c = s[i];
-        s[i] = s[j];
-        s[j] = c;
+    n = 0;
+    for (i = 0; s[i] >= '0' && s[i] <= '9'; i++) {
+        n = n*10 + (s[i] -'0');
     }
+    return n;
 }
 
 /* ============================================================
