@@ -2,33 +2,74 @@
 // location in a string s1 where any character from the string s2 occurs, or -1 if
 // s1 contains no characters from s2. (The standard library function strpbrk
 // does the same job but returns a pointer to the location.
+// #include <stdio.h>
 
+// int any(char s1[], char s2[]);
+
+// int main(void)
+// {
+//     char str1[] = "hello world";
+//     char str2[] = "aeiou";
+//     int result = any(str1, str2);
+//     if (result != -1) {
+//         printf("First occurrence of any character from '%s' in '%s' is at index: %d\n", str2, str1, result);
+//     } else {
+//         printf("No characters from '%s' found in '%s'\n", str2, str1);
+//     }
+//     return 0;
+// }
+
+// int any(char s1[], char s2[]) {
+//     for (int i = 0; s1[i] != '\0'; i++) {
+//         for (int j = 0; s2[j] != '\0'; j++) {
+//             if (s1[i] == s2[j]) {
+//                 return i;
+//             }
+//         }
+//     }
+//     return -1;
+// }
+// Exercise 2-6. Write a function setbits(x,p,n,y) that returns x with the n
+// bits that begin at position p set to the rightmost n bits of y, leaving the other
+// bits unchanged.
 #include <stdio.h>
 
-int any(char s1[], char s2[]);
+unsigned getbits(unsigned x, int p, int n);
+unsigned setbits(unsigned x, int p, int n, unsigned y);
+void print_bits(unsigned v);
 
-int main(void)
-{
-    char str1[] = "hello world";
-    char str2[] = "aeiou";
-    int result = any(str1, str2);
-    if (result != -1) {
-        printf("First occurrence of any character from '%s' in '%s' is at index: %d\n", str2, str1, result);
-    } else {
-        printf("No characters from '%s' found in '%s'\n", str2, str1);
-    }
-    return 0;
+void main(){
+    unsigned result1 = getbits(0b10110110, 4, 3);
+    printf("Result: %u\n", result1);
+    unsigned x = 0xAA; /* 1010 1010 */
+    unsigned y = 0x07; /* 0000 0111 */
+    int p = 4;
+    int n = 3;
+
+    unsigned result2 = setbits(x, p, n, y);
+
+    printf("x      = "); print_bits(x);      printf(" (0x%02X)\n", x);
+    printf("y      = "); print_bits(y);      printf(" (0x%02X)\n", y);
+    printf("Result = "); print_bits(result2); printf(" (0x%02X)\n", result2);
+
 }
 
-int any(char s1[], char s2[]) {
-    for (int i = 0; s1[i] != '\0'; i++) {
-        for (int j = 0; s2[j] != '\0'; j++) {
-            if (s1[i] == s2[j]) {
-                return i;
-            }
-        }
+unsigned getbits(unsigned x, int p, int n)
+{
+    return (x >> (p + 1 - n)) & ~(~0 << n);
+}
+unsigned setbits(unsigned x, int p, int n, unsigned y)
+{
+    unsigned mask = ~(~0u << n);           /* n ones at the bottom */
+    return (x & ~(mask << (p + 1 - n)))    /* clear the target field in x */
+           | ((y & mask) << (p + 1 - n));  /* insert y's bottom n bits there */
+}
+void print_bits(unsigned v)
+{
+    for (int i = 7; i >= 0; i--) {
+        printf("%u", (v >> i) & 1);
+        if (i == 4) printf(" "); /* space for readability */
     }
-    return -1;
 }
 
 // #include <stdio.h>
