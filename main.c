@@ -72,6 +72,55 @@ void print_bits(unsigned v)
     }
 }
 
+// 2.7 Write a function invert(x,p,n) that returns x with the n bits
+// that begin at position p inverted (i.e., 1 changed into 0 and vice versa),
+// leaving the others unchanged.
+#include <stdio.h>
+
+/*
+ * Inverts n bits of x starting at position p (0-indexed from right to left).
+ * Other bits remain unchanged.
+ */
+unsigned int invert(unsigned int x, int p, int n) {
+    // Create a mask with n ones in the least significant bit positions
+    unsigned int mask = ~(~0u << n);
+    
+    // Shift those n ones into position p
+    mask = mask << (p + 1 - n);
+    
+    // XOR x with the mask to invert those specific bits
+    return x ^ mask;
+}
+
+// Helper function to print an unsigned int in binary format for verification
+void print_binary(unsigned int num) {
+    for (int i = sizeof(num) * 8 - 1; i >= 0; i--) {
+        unsigned int bit = (num >> i) & 1;
+        printf("%u", bit);
+        if (i % 4 == 0) printf(" "); // Group bits by nibble for readability
+    }
+    printf("\n");
+}
+
+int main(void) {
+    // Example test case:
+    // x = 170 (1010 1010 in binary)
+    // p = 4, n = 3  -> invert 3 bits starting at position 4 (bits 4, 3, 2)
+    unsigned int x = 170;
+    int p = 4;
+    int n = 3;
+
+    printf("Original x (%u): \t\t", x);
+    print_binary(x);
+
+    unsigned int result = invert(x, p, n);
+
+    printf("Inverted x (%u): \t\t", result);
+    print_binary(result);
+
+    return 0;
+}
+
 // #include <stdio.h>
 // #include <string.h>
 
