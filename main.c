@@ -120,6 +120,47 @@ int main(void) {
 
     return 0;
 }
+// 2-8 Write a function rightrot(x,n) that returns the value of the
+// integer x rotated to the right by n positions.
+
+#include <stdio.h>
+
+/* Computes total bits in an unsigned integer on the host machine */
+int wordsize(void) {
+    unsigned int v = (unsigned int)~0;
+    int i = 1;
+    while ((v = v >> 1) > 0) {
+        i++;
+    }
+    return i;
+}
+
+/* Rotates unsigned int x to the right by n positions */
+unsigned int rightrot(unsigned int x, int n) {
+    int w = wordsize();
+    
+    /* Handle n values larger than wordsize or negative */
+    n = n % w;
+    if (n == 0) {
+        return x;
+    }
+
+    /* * 1. (x >> n) shifts x right by n bits.
+     * 2. (x << (w - n)) takes the rightmost n bits and shifts them to the far left.
+     * 3. Combining with '|' merges the two parts.
+     */
+    return (x >> n) | (x << (w - n));
+}
+
+int main(void) {
+    unsigned int x = 0b10100111; /* Example value */
+    int n = 3;
+
+    printf("Original: 0x%X\n", x);
+    printf("Rotated : 0x%X\n", rightrot(x, n));
+
+    return 0;
+}
 
 // #include <stdio.h>
 // #include <string.h>
@@ -209,3 +250,7 @@ int main(void) {
  * - Always use sizeof(x) instead of hardcoding byte/bit counts
  * ============================================================
  */
+
+
+
+ 
