@@ -161,6 +161,29 @@ int main(void) {
 
     return 0;
 }
+// 2-9In a two's complement number system, x &= (x-1) deletes
+// the rightmost 1-bit in x. Explain why. Use this observation to write a faster
+// version of bitcount.
+#include <stdio.h>
+
+/* Faster bitcount using Brian Kernighan's trick */
+int bitcount(unsigned x) {
+    int b;
+
+    for (b = 0; x != 0; x &= (x - 1)) {
+        b++;
+    }
+
+    return b;
+}
+
+int main(void) {
+    unsigned int num = 0b10110100; /* Has 4 set bits */
+
+    printf("Number of 1-bits in %u: %d\n", num, bitcount(num));
+
+    return 0;
+}
 
 // #include <stdio.h>
 // #include <string.h>
