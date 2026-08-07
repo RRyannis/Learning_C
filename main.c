@@ -184,6 +184,23 @@ int main(void) {
 
     return 0;
 }
+#include <stdio.h>
+
+unsigned rightrot(unsigned x, int n);
+
+int main(void)
+{
+    unsigned x = 0xB6;   /* 10110110 */
+    printf("before: %u (0x%X)\n", x, x);
+    printf("after:  %u (0x%X)\n", rightrot(x, 3), rightrot(x, 3));
+    return 0;
+}
+
+unsigned rightrot(unsigned x, int n)
+{
+    int bits = sizeof(x) * 8;
+    return (x >> n) | (x << (bits - n));
+}
 
 // #include <stdio.h>
 // #include <string.h>
