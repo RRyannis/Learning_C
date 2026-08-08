@@ -202,6 +202,28 @@ unsigned rightrot(unsigned x, int n)
     return (x >> n) | (x << (bits - n));
 }
 
+#include <stdio.h>
+
+int countbits(unsigned x);
+
+int main(void)
+{
+    unsigned x = 0xB6;   /* 10110110 -> five 1-bits */
+    printf("x = %u (0x%X)\n", x, x);
+    printf("set bits: %d\n", countbits(x));
+    return 0;
+}
+
+int countbits(unsigned x)
+{
+    int count = 0;
+    while (x != 0) {
+        count += x & 1;   /* check the lowest bit */
+        x >>= 1;          /* shift everything right by 1 */
+    }
+    return count;
+}
+
 // #include <stdio.h>
 // #include <string.h>
 
