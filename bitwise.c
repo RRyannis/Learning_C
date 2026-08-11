@@ -93,16 +93,31 @@
  */
 
 
+//  #include <stdio.h>
+
+//  int getbits(int x, int p, int n);
+
+//  int main(void){
+//    int result = getbits(0xB6, 4, 3);
+//    printf("result: %d", result);
+//  }
+
+//  int getbits(int x, int p, int n){
+//     x = (x >> (p + 1 - n) & ~(~0u << n));
+//     return x;
+//  }
+
  #include <stdio.h>
 
- int getbits(int x, int p, int n);
+ int invert(int x, int p, int n);
 
  int main(void){
-   int result = getbits(0xB6, 4, 3);
-   printf("result: %d", result);
+  int result = invert(10, 1, 2);
+  printf("result: %d", result);
  }
 
- int getbits(int x, int p, int n){
-    x = (x >> (p + 1 - n) & ~(~0u << n));
-    return x;
+ int invert(int x, int p, int n){
+  x = x^(~(~0u << n) << (p + 1 - n));
+  return x;
  }
+
