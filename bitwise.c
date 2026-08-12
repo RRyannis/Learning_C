@@ -107,17 +107,37 @@
 //     return x;
 //  }
 
+//  #include <stdio.h>
+
+//  int invert(int x, int p, int n);
+
+//  int main(void){
+//   int result = invert(10, 1, 2);
+//   printf("result: %d", result);
+//  }
+
+//  int invert(int x, int p, int n){
+//   x = x^(~(~0u << n) << (p + 1 - n));
+//   return x;
+//  }
+
+
+
  #include <stdio.h>
 
- int invert(int x, int p, int n);
+unsigned char swap_nibbles(unsigned char x);
 
- int main(void){
-  int result = invert(10, 1, 2);
-  printf("result: %d", result);
- }
+int main(void)
+{
+    unsigned char x = 0xA5;   /* 10100101 */
+    printf("before: 0x%02X\n", x);
+    printf("after:  0x%02X\n", swap_nibbles(x));
+    return 0;
+}
 
- int invert(int x, int p, int n){
-  x = x^(~(~0u << n) << (p + 1 - n));
-  return x;
- }
-
+unsigned char swap_nibbles(unsigned char x)
+{
+    unsigned char high = (x >> 4) & 0x0F;   /* isolate top 4 bits, shifted down */
+    unsigned char low  = (x << 4) & 0xF0;   /* isolate bottom 4 bits, shifted up */
+    return low | high;                       /* stitch the two halves back together, swapped */
+}
