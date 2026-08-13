@@ -137,7 +137,37 @@ int main(void)
 
 unsigned char swap_nibbles(unsigned char x)
 {
-    unsigned char high = (x >> 4) & 0x0F;   /* isolate top 4 bits, shifted down */
-    unsigned char low  = (x << 4) & 0xF0;   /* isolate bottom 4 bits, shifted up */
-    return low | high;                       /* stitch the two halves back together, swapped */
+    unsigned char high = (x >> 4) & 0x0F;   
+    unsigned char low  = (x << 4) & 0xF0;   
+    return low | high;                       
+}
+
+
+#include <stdio.stdio.h>
+
+/* bitcount: count 1 bits in x (unsigned to avoid sign-extension issues) */
+int bitcount(unsigned x)
+{
+    int b;
+
+    for (b = 0; x != 0; x &= (x - 1)) {
+        b++;
+    }
+
+    return b;
+}
+
+int main(void)
+{
+    unsigned test_val1 = 0;       /* 0 set bits */
+    unsigned test_val2 = 12;      /* 0000 1100 -> 2 set bits */
+    unsigned test_val3 = 0x8001;  /* 1000 0000 0000 0001 -> 2 set bits */
+    unsigned test_val4 = 255;     /* 1111 1111 -> 8 set bits */
+
+    printf("bitcount(%u) = %d\n", test_val1, bitcount(test_val1));
+    printf("bitcount(%u) = %d\n", test_val2, bitcount(test_val2));
+    printf("bitcount(%u) = %d\n", test_val3, bitcount(test_val3));
+    printf("bitcount(%u) = %d\n", test_val4, bitcount(test_val4));
+
+    return 0;
 }
