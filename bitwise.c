@@ -159,10 +159,10 @@ int bitcount(unsigned x)
 
 int main(void)
 {
-    unsigned test_val1 = 0;       /* 0 set bits */
-    unsigned test_val2 = 12;      /* 0000 1100 -> 2 set bits */
-    unsigned test_val3 = 0x8001;  /* 1000 0000 0000 0001 -> 2 set bits */
-    unsigned test_val4 = 255;     /* 1111 1111 -> 8 set bits */
+    unsigned test_val1 = 0;    
+    unsigned test_val2 = 12;      
+    unsigned test_val3 = 0x8001;  
+    unsigned test_val4 = 255;     
 
     printf("bitcount(%u) = %d\n", test_val1, bitcount(test_val1));
     printf("bitcount(%u) = %d\n", test_val2, bitcount(test_val2));
