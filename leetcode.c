@@ -37,33 +37,72 @@
 // }
 
 //profit
+// #include <stdio.h>
+
+// int maxProfit(int prices[], int pricesSize);
+
+// int main(void)
+// {
+//     int prices[] = {7, 1, 5, 3, 6, 4};
+//     int size = 6;
+
+//     printf("max profit: %d\n", maxProfit(prices, size));
+
+//     return 0;
+// }
+
+// int maxProfit(int prices[], int pricesSize)
+// {
+//     int min_price = prices[0];
+//     int max_profit = 0;
+//     int i;
+
+//     for (i = 1; i < pricesSize; i++) {
+//         if (prices[i] < min_price) {
+//             min_price = prices[i];          /* found a new lower buy price */
+//         } else if (prices[i] - min_price > max_profit) {
+//             max_profit = prices[i] - min_price;  /* found a better profit */
+//         }
+//     }
+
+//     return max_profit;
+// }
+
+
 #include <stdio.h>
 
-int maxProfit(int prices[], int pricesSize);
+int removeDuplicates(int nums[], int numsSize);
 
 int main(void)
 {
-    int prices[] = {7, 1, 5, 3, 6, 4};
-    int size = 6;
+    int nums[] = {1, 1, 2, 2, 3, 4, 4, 5};
+    int size = 8;
 
-    printf("max profit: %d\n", maxProfit(prices, size));
+    int newSize = removeDuplicates(nums, size);
+
+    printf("new length: %d\n", newSize);
+    printf("array: ");
+    for (int i = 0; i < newSize; i++)
+        printf("%d ", nums[i]);
+    printf("\n");
 
     return 0;
 }
 
-int maxProfit(int prices[], int pricesSize)
+int removeDuplicates(int nums[], int numsSize)
 {
-    int min_price = prices[0];
-    int max_profit = 0;
-    int i;
+    if (numsSize == 0)
+        return 0;
 
-    for (i = 1; i < pricesSize; i++) {
-        if (prices[i] < min_price) {
-            min_price = prices[i];          /* found a new lower buy price */
-        } else if (prices[i] - min_price > max_profit) {
-            max_profit = prices[i] - min_price;  /* found a better profit */
+    int i, j;
+    j = 0;   
+
+    for (i = 1; i < numsSize; i++) {
+        if (nums[i] != nums[j]) {
+            j++;
+            nums[j] = nums[i];
         }
     }
 
-    return max_profit;
+    return j + 1; 
 }
