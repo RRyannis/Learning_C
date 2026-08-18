@@ -83,21 +83,68 @@
 
 //Exam question 35
 
+// #include <stdio.h>
+
+// int main(void) {
+//     int number, reversed, sum, digit1, digit2;
+//     printf("Please enter an integer number with 2 digits.");
+//     scanf("%d", &number);
+//     if (number < 10 || number > 99) {
+//         printf("Error. The number you entered doesn't have 2 digits.");
+//         return 1;
+//     }
+//     digit1 = number / 10;
+//     digit2 = number % 10;
+//     reversed = digit2 * 10 + digit1;
+//     sum = digit1 + digit2;
+//     printf("The number reversed is %d\n", reversed);
+//     printf("The sum of the number's digits is %d.", sum);
+//     return 0;
+// }
+
+//Exam question 36, quick sort in C
 #include <stdio.h>
 
-int main(void) {
-    int number, reversed, sum, digit1, digit2;
-    printf("Please enter an integer number with 2 digits.");
-    scanf("%d", &number);
-    if (number < 10 || number > 99) {
-        printf("Error. The number you entered doesn't have 2 digits.");
-        return 1;
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+int partition(int arr[], int low, int high) {
+    int pivot = arr[high];
+    int i = (low - 1);
+    for (int j = low; j < high; j++) {
+        if (arr[j] <= pivot) {
+            i++;
+            swap(&arr[i], &arr[j]);
+        }
     }
-    digit1 = number / 10;
-    digit2 = number % 10;
-    reversed = digit2 * 10 + digit1;
-    sum = digit1 + digit2;
-    printf("The number reversed is %d\n", reversed);
-    printf("The sum of the number's digits is %d.", sum);
+    swap(&arr[i + 1], &arr[high]);
+    return (i + 1);
+}
+
+void quickSort(int arr[], int low, int high) {
+    if (low < high) {
+        int partitionIndex = partition(arr, low, high);
+        quickSort(arr, low, partitionIndex - 1);
+        quickSort(arr, partitionIndex + 1, high);
+    }
+}
+
+void printArray(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        printf("%d", arr[i]);
+        printf("\n");
+    }
+}
+
+int main(void) {
+    int arr[] = {10, 7, 8, 9, 1, 5};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    printf("Initial array: \n");
+    printArray(arr, n);
+    quickSort(arr, 0, n-1);
+    printf("Sorted array: \n");
+    printArray(arr, n);
     return 0;
 }
