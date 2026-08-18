@@ -44,38 +44,60 @@
 
 //Exam question 32
 
+// #include <stdio.h>
+// #include <string.h>
+
+// int main(void) { 
+    
+//     char salesmen[10][50];
+//     int sales[10];
+//     char salesmanBiggest[50] = "No one";
+//     char salesmanSmallest[50] = "No one";
+//     int sumOfSales = 0;
+//     int biggestSale = 0;
+//     int smallestSale = 1000000;
+
+//     for(int i = 0; i <= 9; i++){
+//         printf("Salesman name: ");
+//         scanf("%s", salesmen[i]);
+//         printf("Sales amount by that salesman: ");
+//         scanf("%d", &sales[i]);
+//         sumOfSales += sales[i];
+//         if (sales[i] > biggestSale) {
+//             biggestSale = sales[i];
+//             strcpy(salesmanBiggest, salesmen[i]);
+//         }
+//         if (sales[i] < smallestSale) {
+//             smallestSale = sales[i];
+//             strcpy(salesmanSmallest, salesmen[i]);
+//         }
+//     }
+//     int salesAverage = sumOfSales/10;
+//     printf("The sales average was %d.", salesAverage);
+//     printf("The name of the person with the most sales was %s.", salesmanBiggest);
+//     printf("The name of the person with the fewest sales was %s.", salesmanSmallest);
+    
+//     return 0;
+// }
+
+
+//Exam question 35
+
 #include <stdio.h>
-#include <string.h>
 
-int main(void) { 
-    
-    char salesmen[10][50];
-    int sales[10];
-    char salesmanBiggest[50] = "No one";
-    char salesmanSmallest[50] = "No one";
-    int sumOfSales = 0;
-    int biggestSale = 0;
-    int smallestSale = 1000000;
-
-    for(int i = 0; i <= 9; i++){
-        printf("Salesman name: ");
-        scanf("%s", salesmen[i]);
-        printf("Sales amount by that salesman: ");
-        scanf("%d", &sales[i]);
-        sumOfSales += sales[i];
-        if (sales[i] > biggestSale) {
-            biggestSale = sales[i];
-            strcpy(salesmanBiggest, salesmen[i]);
-        }
-        if (sales[i] < smallestSale) {
-            smallestSale = sales[i];
-            strcpy(salesmanSmallest, salesmen[i]);
-        }
+int main(void) {
+    int number, reversed, sum, digit1, digit2;
+    printf("Please enter an integer number with 2 digits.");
+    scanf("%d", &number);
+    if (number < 10 || number > 99) {
+        printf("Error. The number you entered doesn't have 2 digits.");
+        return 1;
     }
-    int salesAverage = sumOfSales/10;
-    printf("The sales average was %d.", salesAverage);
-    printf("The name of the person with the most sales was %s.", salesmanBiggest);
-    printf("The name of the person with the fewest sales was %s.", salesmanSmallest);
-    
+    digit1 = number / 10;
+    digit2 = number % 10;
+    reversed = digit2 * 10 + digit1;
+    sum = digit1 + digit2;
+    printf("The number reversed is %d\n", reversed);
+    printf("The sum of the number's digits is %d.", sum);
     return 0;
 }
