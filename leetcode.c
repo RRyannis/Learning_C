@@ -69,40 +69,73 @@
 // }
 
 
-#include <stdio.h>
+// #include <stdio.h>
 
-int removeDuplicates(int nums[], int numsSize);
+// int removeDuplicates(int nums[], int numsSize);
+
+// int main(void)
+// {
+//     int nums[] = {1, 1, 2, 2, 3, 4, 4, 5};
+//     int size = 8;
+
+//     int newSize = removeDuplicates(nums, size);
+
+//     printf("new length: %d\n", newSize);
+//     printf("array: ");
+//     for (int i = 0; i < newSize; i++)
+//         printf("%d ", nums[i]);
+//     printf("\n");
+
+//     return 0;
+// }
+
+// int removeDuplicates(int nums[], int numsSize)
+// {
+//     if (numsSize == 0)
+//         return 0;
+
+//     int i, j;
+//     j = 0;   
+
+//     for (i = 1; i < numsSize; i++) {
+//         if (nums[i] != nums[j]) {
+//             j++;
+//             nums[j] = nums[i];
+//         }
+//     }
+
+//     return j + 1; 
+// }
+
+
+//check for double element in array
+
+#include <stdio.h>
+#include <stdbool.h>
+
+bool containsDuplicate(int nums[], int numsSize);
 
 int main(void)
 {
-    int nums[] = {1, 1, 2, 2, 3, 4, 4, 5};
-    int size = 8;
+    int nums1[] = {1, 2, 3, 1};
+    int nums2[] = {1, 2, 3, 4};
 
-    int newSize = removeDuplicates(nums, size);
-
-    printf("new length: %d\n", newSize);
-    printf("array: ");
-    for (int i = 0; i < newSize; i++)
-        printf("%d ", nums[i]);
-    printf("\n");
+    printf("nums1: %s\n", containsDuplicate(nums1, 4) ? "true" : "false");
+    printf("nums2: %s\n", containsDuplicate(nums2, 4) ? "true" : "false");
 
     return 0;
 }
 
-int removeDuplicates(int nums[], int numsSize)
+bool containsDuplicate(int nums[], int numsSize)
 {
-    if (numsSize == 0)
-        return 0;
-
     int i, j;
-    j = 0;   
 
-    for (i = 1; i < numsSize; i++) {
-        if (nums[i] != nums[j]) {
-            j++;
-            nums[j] = nums[i];
+    for (i = 0; i < numsSize; i++) {
+        for (j = i + 1; j < numsSize; j++) {
+            if (nums[i] == nums[j])
+                return true;
         }
     }
 
-    return j + 1; 
+    return false;
 }
