@@ -110,32 +110,62 @@
 
 //check for double element in array
 
+// #include <stdio.h>
+// #include <stdbool.h>
+
+// bool containsDuplicate(int nums[], int numsSize);
+
+// int main(void)
+// {
+//     int nums1[] = {1, 2, 3, 1};
+//     int nums2[] = {1, 2, 3, 4};
+
+//     printf("nums1: %s\n", containsDuplicate(nums1, 4) ? "true" : "false");
+//     printf("nums2: %s\n", containsDuplicate(nums2, 4) ? "true" : "false");
+
+//     return 0;
+// }
+
+// bool containsDuplicate(int nums[], int numsSize)
+// {
+//     int i, j;
+
+//     for (i = 0; i < numsSize; i++) {
+//         for (j = i + 1; j < numsSize; j++) {
+//             if (nums[i] == nums[j])
+//                 return true;
+//         }
+//     }
+
+//     return false;
+// }
+
+
+
+
 #include <stdio.h>
-#include <stdbool.h>
 
-bool containsDuplicate(int nums[], int numsSize);
-
-int main(void)
-{
-    int nums1[] = {1, 2, 3, 1};
-    int nums2[] = {1, 2, 3, 4};
-
-    printf("nums1: %s\n", containsDuplicate(nums1, 4) ? "true" : "false");
-    printf("nums2: %s\n", containsDuplicate(nums2, 4) ? "true" : "false");
-
-    return 0;
+/* Function: hammingWeight
+ * -----------------------
+ * Calculates the number of '1' bits in an unsigned integer.
+ * Clears the lowest set bit in each iteration using n &= (n - 1).
+ */
+int hammingWeight(unsigned int n) {
+    int count = 0;
+    
+    while (n != 0) {
+        n &= (n - 1); /* Erases the rightmost 1-bit */[cite: 1, 2]
+        count++;
+    }
+    
+    return count;
 }
 
-bool containsDuplicate(int nums[], int numsSize)
-{
-    int i, j;
-
-    for (i = 0; i < numsSize; i++) {
-        for (j = i + 1; j < numsSize; j++) {
-            if (nums[i] == nums[j])
-                return true;
-        }
-    }
-
-    return false;
+int main(void) {
+    unsigned int test_val = 11; /* Binary: 00000000000000000000000000001011 */
+    
+    printf("Input: %u\n", test_val);
+    printf("Number of 1 bits: %d\n", hammingWeight(test_val));
+    
+    return 0;
 }
