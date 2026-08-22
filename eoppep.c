@@ -151,23 +151,45 @@
 
 
 //Exam question 10, groub B
+// #include <stdio.h>
+
+// int main (void) {
+
+//     for (int i = 0; i < 10; i++) {
+//         if (i == 5) {
+//             break;        
+//         }
+//         printf("%d", i);
+//     }
+//     printf("\n");
+
+//     for (int i = 0; i < 10; i++) {
+//         if (i == 5) {
+//             continue;
+//         }
+//         printf("%d", i);
+//     }
+//     return 0;
+// }
+
+//exam question 11, group B
 #include <stdio.h>
 
-int main (void) {
-
-    for (int i = 0; i < 10; i++) {
-        if (i == 5) {
-            break;        
-        }
-        printf("%d", i);
+int main(void) {
+    int num, sum = 0, count = 0;
+    printf("Enter integers. Enter 0 to exit.\n");
+    while(1) {
+        scanf("%d", &num);
+        if (num == 0) break;
+        sum += num;
+        count++;
     }
-    printf("\n");
 
-    for (int i = 0; i < 10; i++) {
-        if (i == 5) {
-            continue;
-        }
-        printf("%d", i);
+    if (count > 0) {
+        printf("Average of numbers entered: %.2f\n", (float)sum/count);
+    } else {
+        printf("No numbers entered.");
     }
+
     return 0;
 }
