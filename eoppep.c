@@ -173,23 +173,60 @@
 // }
 
 //exam question 11, group B
+// #include <stdio.h>
+
+// int main(void) {
+//     int num, sum = 0, count = 0;
+//     printf("Enter integers. Enter 0 to exit.\n");
+//     while(1) {
+//         scanf("%d", &num);
+//         if (num == 0) break;
+//         sum += num;
+//         count++;
+//     }
+
+//     if (count > 0) {
+//         printf("Average of numbers entered: %.2f\n", (float)sum/count);
+//     } else {
+//         printf("No numbers entered.");
+//     }
+
+//     return 0;
+// }
+
+//exam question 12, group b
+
+// #include <stdio.h>
+
+// int main (void) {
+//     int num1, num2, sum;
+
+//     printf("Enter two integers.");
+//     scanf("%d %d", &num1, &num2);
+
+//     sum = num1 + num2;
+//     printf("Sum(dec): %d\n", sum);
+//     printf("Sum(oct): %o\n", sum);
+//     printf("Sum(hex): %X\n", sum);
+// }
+
+//exam question 13, group b
 #include <stdio.h>
 
-int main(void) {
-    int num, sum = 0, count = 0;
-    printf("Enter integers. Enter 0 to exit.\n");
-    while(1) {
-        scanf("%d", &num);
-        if (num == 0) break;
-        sum += num;
-        count++;
-    }
+float calculate(float a, float b) {
+    return (a + b)/2;
+}
 
-    if (count > 0) {
-        printf("Average of numbers entered: %.2f\n", (float)sum/count);
-    } else {
-        printf("No numbers entered.");
-    }
+int main(void) {
+    
+    float num1, num2;
+    
+    printf("Enter two real numbers.");
+    scanf("%f %f", &num1, &num2);
+
+    float average = calculate(num1, num2);
+    printf("Their average is %f.", average);
 
     return 0;
 }
+
