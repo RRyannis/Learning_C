@@ -211,22 +211,45 @@
 // }
 
 //exam question 13, group b
+// #include <stdio.h>
+
+// float calculate(float a, float b) {
+//     return (a + b)/2;
+// }
+
+// int main(void) {
+    
+//     float num1, num2;
+    
+//     printf("Enter two real numbers.");
+//     scanf("%f %f", &num1, &num2);
+
+//     float average = calculate(num1, num2);
+//     printf("Their average is %f.", average);
+
+//     return 0;
+// }
+
+//exam question 14, group b
+
+// #include <stdio.h>
+
+// int main(void) {
+//     char name[50];
+//     printf("What is your name?\n");
+//     scanf("%s", name);
+//     printf("Hello %s, welcome!", name);
+// }
+
+//exam question 15, group b
+
 #include <stdio.h>
 
-float calculate(float a, float b) {
-    return (a + b)/2;
-}
-
 int main(void) {
-    
-    float num1, num2;
-    
-    printf("Enter two real numbers.");
-    scanf("%f %f", &num1, &num2);
-
-    float average = calculate(num1, num2);
-    printf("Their average is %f.", average);
-
+    printf("Fahrenheit\tCelsius\n");
+    for (int F = 0; F <= 200; F += 20) {
+        float C = 5.0 * (F - 32)/9;
+        printf("%d\t\t%.2f\n", F,C);
+    }
     return 0;
 }
-
