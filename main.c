@@ -136,93 +136,93 @@ int wordsize(void) {
 }
 
 /* Rotates unsigned int x to the right by n positions */
-unsigned int rightrot(unsigned int x, int n) {
-    int w = wordsize();
+// unsigned int rightrot(unsigned int x, int n) {
+//     int w = wordsize();
     
     /* Handle n values larger than wordsize or negative */
-    n = n % w;
-    if (n == 0) {
-        return x;
-    }
+    // n = n % w;
+    // if (n == 0) {
+    //     return x;
+    // }
 
     /* * 1. (x >> n) shifts x right by n bits.
      * 2. (x << (w - n)) takes the rightmost n bits and shifts them to the far left.
      * 3. Combining with '|' merges the two parts.
      */
-    return (x >> n) | (x << (w - n));
-}
+    // return (x >> n) | (x << (w - n));
+// }
 
-int main(void) {
-    unsigned int x = 0b10100111; /* Example value */
-    int n = 3;
+// int main(void) {
+//     unsigned int x = 0b10100111; /* Example value */
+//     int n = 3;
 
-    printf("Original: 0x%X\n", x);
-    printf("Rotated : 0x%X\n", rightrot(x, n));
+//     printf("Original: 0x%X\n", x);
+//     printf("Rotated : 0x%X\n", rightrot(x, n));
 
-    return 0;
-}
+//     return 0;
+// }
 // 2-9In a two's complement number system, x &= (x-1) deletes
 // the rightmost 1-bit in x. Explain why. Use this observation to write a faster
 // version of bitcount.
-#include <stdio.h>
+// #include <stdio.h>
 
-/* Faster bitcount using Brian Kernighan's trick */
-int bitcount(unsigned x) {
-    int b;
+// /* Faster bitcount using Brian Kernighan's trick */
+// int bitcount(unsigned x) {
+//     int b;
 
-    for (b = 0; x != 0; x &= (x - 1)) {
-        b++;
-    }
+//     for (b = 0; x != 0; x &= (x - 1)) {
+//         b++;
+//     }
 
-    return b;
-}
+//     return b;
+// }
 
-int main(void) {
-    unsigned int num = 0b10110100; /* Has 4 set bits */
+// int main(void) {
+//     unsigned int num = 0b10110100; /* Has 4 set bits */
 
-    printf("Number of 1-bits in %u: %d\n", num, bitcount(num));
+//     printf("Number of 1-bits in %u: %d\n", num, bitcount(num));
 
-    return 0;
-}
-#include <stdio.h>
+//     return 0;
+// }
+// #include <stdio.h>
 
-unsigned rightrot(unsigned x, int n);
+// unsigned rightrot(unsigned x, int n);
 
-int main(void)
-{
-    unsigned x = 0xB6;   /* 10110110 */
-    printf("before: %u (0x%X)\n", x, x);
-    printf("after:  %u (0x%X)\n", rightrot(x, 3), rightrot(x, 3));
-    return 0;
-}
+// int main(void)
+// {
+//     unsigned x = 0xB6;   /* 10110110 */
+//     printf("before: %u (0x%X)\n", x, x);
+//     printf("after:  %u (0x%X)\n", rightrot(x, 3), rightrot(x, 3));
+//     return 0;
+// }
 
-unsigned rightrot(unsigned x, int n)
-{
-    int bits = sizeof(x) * 8;
-    return (x >> n) | (x << (bits - n));
-}
+// unsigned rightrot(unsigned x, int n)
+// {
+//     int bits = sizeof(x) * 8;
+//     return (x >> n) | (x << (bits - n));
+// }
 
-#include <stdio.h>
+// #include <stdio.h>
 
-int countbits(unsigned x);
+// int countbits(unsigned x);
 
-int main(void)
-{
-    unsigned x = 0xB6;   /* 10110110 -> five 1-bits */
-    printf("x = %u (0x%X)\n", x, x);
-    printf("set bits: %d\n", countbits(x));
-    return 0;
-}
+// int main(void)
+// {
+//     unsigned x = 0xB6;   /* 10110110 -> five 1-bits */
+//     printf("x = %u (0x%X)\n", x, x);
+//     printf("set bits: %d\n", countbits(x));
+//     return 0;
+// }
 
-int countbits(unsigned x)
-{
-    int count = 0;
-    while (x != 0) {
-        count += x & 1;   /* check the lowest bit */
-        x >>= 1;          /* shift everything right by 1 */
-    }
-    return count;
-}
+// int countbits(unsigned x)
+// {
+//     int count = 0;
+//     while (x != 0) {
+//         count += x & 1;   /* check the lowest bit */
+//         x >>= 1;          /* shift everything right by 1 */
+//     }
+//     return count;
+// }
 
 // #include <stdio.h>
 // #include <string.h>
@@ -249,6 +249,91 @@ int countbits(unsigned x)
 //     return n;
 // }
 
+
+//stack 
+// C Program to demonstrate how to Implement a Stack
+#include <stdio.h>
+#include <stdbool.h>
+
+// Define the maximim capacity of the stack
+#define MAX_SIZE 100
+
+// Define a structure for the stack
+typedef struct {
+    int arr[MAX_SIZE];  
+    int top;        
+} Stack;
+
+// Function to initialize the stack
+void initialize(Stack *stack) {
+    stack->top = -1;  
+}
+
+// Function to check if the stack is empty
+bool isEmpty(Stack *stack) {
+    return stack->top == -1;  
+}
+
+// Function to check if the stack is full
+bool isFull(Stack *stack) {
+    return stack->top >= MAX_SIZE - 1;  
+}
+
+// Function to push an element onto the stack
+void push(Stack *stack, int value) {
+    if (isFull(stack)) {
+        printf("Stack Overflow\n");
+        return;
+    }
+    stack->arr[++stack->top] = value;
+    printf("Pushed %d onto the stack\n", value);
+}
+
+// Function to pop an element from the stack
+int pop(Stack *stack) {
+    if (isEmpty(stack)) {
+        printf("Stack Underflow\n");
+        return -1;
+    }
+
+    int popped = stack->arr[stack->top];
+    stack->top--;
+    printf("Popped %d from the stack\n", popped);
+    return popped;
+}
+
+// Function to peek the top element of the stack
+int peek(Stack *stack) {
+    if (isEmpty(stack)) {
+        printf("Stack is empty\n");
+        return -1;
+    }
+    return stack->arr[stack->top];
+}
+
+int main() {
+    Stack stack;
+    initialize(&stack);  
+
+    push(&stack, 3);
+    printf("Top element: %d\n", peek(&stack));
+
+    push(&stack, 5);
+    printf("Top element: %d\n", peek(&stack));
+
+    push(&stack, 2);
+    printf("Top element: %d\n", peek(&stack));
+
+    push(&stack, 8);
+    printf("Top element: %d\n", peek(&stack));
+
+    while (!isEmpty(&stack)) {
+        printf("Top element: %d\n", peek(&stack));
+        printf("Popped element: %d\n", pop(&stack));
+    }
+
+    return 0;
+}
 /* ============================================================
  * C TYPES CHEAT SHEET
  * ============================================================

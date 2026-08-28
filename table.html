@@ -29,21 +29,21 @@
     border-collapse: collapse;
     font-size: 13px;
     text-align: center;
-    table-layout: fixed; /* Κατανέμει ισόποσα το πλάτος στις 26 στήλες */
+    table-layout: fixed; /* Κατανέμει ισόποσα το πλάτος στις στήλες */
   }
 
   th, td {
     border: 1px solid #c00000;
     padding: 4px 0;
-    height: 28px; /* Άνετο ύψος για εύκολη χειρόγραφη συμπλήρωση */
+    height: 32px; /* Άνετο ύψος για εύκολη χειρόγραφη συμπλήρωση */
     box-sizing: border-box;
   }
 
   .row-label {
-    width: 85px;
+    width: 115px; /* Αρκετός χώρος για να μην κόβονται οι λέξεις */
     text-align: left;
     font-weight: bold;
-    padding-left: 6px;
+    padding-left: 8px;
     white-space: nowrap;
   }
 
@@ -73,6 +73,21 @@
 <div class="table-container">
   <table>
     
+    <!-- 2 Άδειες γραμμές στην κορυφή (με ίδια δομή κελιών για να μην αλλοιώνεται το πλάτος των στηλών) -->
+    <tr>
+      <td class="row-label"></td>
+      <td class="col-sub"></td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      <td class="col-code"></td>
+    </tr>
+    <tr>
+      <td class="row-label"></td>
+      <td class="col-sub"></td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      <td class="col-code"></td>
+    </tr>
+
+    <!-- Section 1: Σπάροι -->
     <tr>
       <td class="row-label" rowspan="2">Σπάροι</td>
       <td class="bold col-sub">1</td>
@@ -85,6 +100,7 @@
       <td class="bold blue-text col-code"></td>
     </tr>
 
+    <!-- Section 2: Ρίζες -->
     <tr>
       <td class="row-label" rowspan="3">Ρίζες</td>
       <td class="bold col-sub">1</td>
@@ -102,6 +118,7 @@
       <td class="bold blue-text col-code"></td>
     </tr>
 
+    <!-- Section 3: Βλαστάρια -->
     <tr>
       <td class="row-label" rowspan="3">Βλαστάρια</td>
       <td class="bold col-sub">1</td>
@@ -119,6 +136,7 @@
       <td class="bold blue-text col-code"></td>
     </tr>
 
+    <!-- Section 4: Δέντρα -->
     <tr>
       <td class="row-label" rowspan="3">Δέντρα</td>
       <td class="bold col-sub">1</td>
