@@ -110,6 +110,7 @@ void swap(int *a, int *b) {
     *a = *b;
     *b = temp;
 }
+
 int partition(int arr[], int low, int high) {
     int pivot = arr[high];
     int i = (low - 1);
@@ -127,7 +128,7 @@ void quickSort(int arr[], int low, int high) {
     if (low < high) {
         int partitionIndex = partition(arr, low, high);
         quickSort(arr, low, partitionIndex - 1);
-        quickSort(arr, partitionIndex + 1, high);
+        quicksort(arr, partitionIndex + 1, high);
     }
 }
 
