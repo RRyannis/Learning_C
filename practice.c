@@ -1,19 +1,161 @@
+//εοππεπ ερώτηση 29, ομάδα α
+// #include <stdio.h>
+
+// int main(void) {
+    
+//     int num;
+//     unsigned long factorial = 1;
+    
+//     printf("Enter a non negative number: \n");
+//     scanf("%d", &num);
+//     if (num < 0) {
+//         printf("Number cannot be negative.");
+//         return 0;
+//     }
+//     for (int i = 1; i <= num; i++) {
+//         factorial *= i;
+//     }
+//     printf("The factorial of %d is %lu.", num, factorial);
+//     return 0;
+// }
+
+//εοππεπ ερώτηση 31, ομάδα α
+// #include <stdio.h>
+
+// int power(int a, int b);
+
+// int main(void) {
+
+//     int num1, num2, result;
+//     printf("Enter two integers: \n");
+//     scanf("%d %d", &num1, &num2);
+//     result = power(num1, num2);
+//     printf("result: %d", result);
+//     return 0;
+// }
+
+// int power(int a, int b) {
+
+//     if (b == 0) {
+//         return 1;
+//     }
+
+//     return a * power(a, b-1);
+// }
+
+//εοππεπ ερώτηση 36, ομάδα α
+
+// #include <stdio.h>
+
+// void swap(int *a, int *b) {
+//     int temp = *a;
+//     *a = *b;
+//     *b = temp;
+// }
+
+// int partition(int arr[], int low, int high) {
+//     int pivot = arr[high];
+//     int i = (low - 1);
+//     for (int j = low; j < high; j++){
+//         if(arr[j] <= pivot) {   {5,16,1,32,21}; i = -1, low = 0, high = 4
+//             i++;
+//             swap(&arr[i], &arr[j]);
+//         }
+//     }
+//     swap(&arr[i + 1], &arr[high]);
+//     return (i + 1);
+// }
+
+// void quickSort(int arr[], int low, int high) {
+//     if (low < high) {
+//         int partitionIndex = partition(arr, low, high);
+//         quickSort(arr, low, partitionIndex - 1);
+//         quickSort(arr, partitionIndex + 1, high);
+//     }  
+// }
+// void printArray(int arr[], int size) {
+//     for (int i = 0; i < size; i++) {
+//         printf("%d", arr[i]);
+//         printf("\n");
+//     }
+// }
+// int main(void) {
+    
+//     int arr[] = {5,16,1,32,21};
+//     int n = sizeof(arr) / sizeof(arr[0]);
+//     printArray(arr, n);
+//     quickSort(arr, 0, n -1);
+//     printArray(arr, n);
+    
+//     return 0;
+// }
+
+//εοππεπ ερώτηση 38, ομάδα Α
+
+// #include <stdio.h>
+
+// int main(void) {
+//     int arr[5][5], num;
+//     for (int i = 0; i < 5; i++) {
+//         for (int j = 0; j < 5; j++) {
+//             printf("Enter an integer: \n");
+//             scanf("%d", &num);
+//             arr[i][j] = num;
+//         }
+//     }
+//     for (int i = 0; i < 5; i++) {
+//         for (int j = 0; j < 5; j++) {
+//             printf("%d \n", arr[i][j]);
+//         }
+//     }
+//     for (int i = 0; i < 5; i++) {
+//         for (int j = 0; j < 5; j++) {
+//             if (i == j) {
+//                 printf("%d \n", arr[i][j]);
+//             }
+//         }
+//     }
+
+//     for (int i = 0; i < 5; i++) {
+//         for (int j = 0; j < 5; j++) {
+//             if ((i + j) == 4) {
+//                 printf("%d \n", arr[i][j]);
+//             }
+//         }
+//     }
+
+//     return 0;
+// }
+
+
+//εοππεπ ερώτηση 11, ομάδα Β
+
+// #include <stdio.h>
+
+// int main(void) {
+//     int num, sum = 0, average, count = 0;
+//     do {
+//         printf("Enter integers, enter 0 to exit. \n");
+//         scanf("%d", &num);
+//         if (num == 0) break;
+//         sum += num;
+//         count++;
+//     } while (1);
+//     average = sum / count;
+//     printf("Average is: %d \n", average);
+//     return 0;
+// }
+
+//εοππεπ ερώτηση 12, ομάδα Β
+
 #include <stdio.h>
 
 int main(void) {
-    
-    int num;
-    unsigned long factorial = 1;
-    
-    printf("Enter a non negative number: \n");
-    scanf("%d", &num);
-    if (num < 0) {
-        printf("Number cannot be negative.");
-        return 0;
-    }
-    for (int i = 1; i <= num; i++) {
-        factorial *= i;
-    }
-    printf("The factorial of %d is %lu.", num, factorial);
-    return 0;
+    int num1, num2, sum = 0;
+    printf("Enter two numbers.\n");
+    scanf("%d %d", &num1, &num2);
+    sum = num1 + num2;
+    printf("decimal: %d \n", sum);
+    printf("octal: %o \n", sum);
+    printf("hexadecimal: %x \n", sum);
 }
