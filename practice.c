@@ -148,14 +148,55 @@
 
 //εοππεπ ερώτηση 12, ομάδα Β
 
+// #include <stdio.h>
+
+// int main(void) {
+//     int num1, num2, sum = 0;
+//     printf("Enter two numbers.\n");
+//     scanf("%d %d", &num1, &num2);
+//     sum = num1 + num2;
+//     printf("decimal: %d \n", sum);
+//     printf("octal: %o \n", sum);
+//     printf("hexadecimal: %x \n", sum);
+// }
+
+//εοππεπ ερώτηση 13, ομάδα Β
+
+// #include <stdio.h>
+
+// float calculate(float a, float b) {
+//     return (a + b)/2;
+// }
+
+// int main(void) {
+//     float num1, num2, result;
+//     printf("Enter two real numbers: \n");
+//     scanf("%f %f", &num1, &num2);
+//     result = calculate(num1, num2);
+//     printf("Their average is %f.", result);
+//     return 0;
+// }
+
+//εοππεπ ερώτηση 14, ομάδα Β
+// #include <stdio.h>
+// #include <string.h>
+
+// int main(void) {
+//     char name[50];
+//     printf("What is your name?\n");
+//     scanf("%s", name);
+//     printf("Hello %s!", name);
+//     return 0;
+// }
+
+//εοππεπ ερώτηση 15, ομάδα Β
 #include <stdio.h>
 
 int main(void) {
-    int num1, num2, sum = 0;
-    printf("Enter two numbers.\n");
-    scanf("%d %d", &num1, &num2);
-    sum = num1 + num2;
-    printf("decimal: %d \n", sum);
-    printf("octal: %o \n", sum);
-    printf("hexadecimal: %x \n", sum);
+    printf("Fahrenheit\tCelsius\n");
+    for (int F = 0; F <= 200; F += 20) {
+        float C = 5.0 * (F - 32)/9;
+        printf("%d\t\t%.2f\n", F,C);
+    }
+    return 0;
 }
