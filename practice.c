@@ -190,13 +190,80 @@
 // }
 
 //εοππεπ ερώτηση 15, ομάδα Β
+// #include <stdio.h>
+
+// int main(void) {
+//     printf("Fahrenheit\tCelsius\n");
+//     for (int F = 0; F <= 200; F += 20) {
+//         float C = 5.0 * (F - 32)/9;
+//         printf("%d\t\t%.2f\n", F,C);
+//     }
+//     return 0;
+// }
+
+//εοππεπ ερώτηση 37, ομάδα Α
 #include <stdio.h>
 
-int main(void) {
-    printf("Fahrenheit\tCelsius\n");
-    for (int F = 0; F <= 200; F += 20) {
-        float C = 5.0 * (F - 32)/9;
-        printf("%d\t\t%.2f\n", F,C);
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void bubble_sort(int arr[], int n) {
+    int i, j, swapped;
+    for (i = 0; i < n - 1; i++) {
+        swapped = 0;
+        for (j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                swap(&arr[j], &arr[j + 1]);
+                swapped = 1;
+            }
+        }
+        if (!swapped) {
+            break;
+        }
     }
+}
+
+void selection_sort(int arr[], int n) {
+    int i, j, min_idx;
+    for (i = 0; i < n - 1; i++) {
+        min_idx = i;
+        for (j = i + 1; j < n; j++) {
+            if (arr[j] < arr[min_idx]) {
+                min_idx = j;
+            }
+        }
+        if (min_idx != i) {
+            swap(&arr[i], &arr[min_idx]);
+        }
+    }
+}
+
+void print_array(const char *label, const int arr[], int n) {
+    printf("%s: ", label);
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+int main(void) {
+    int arr1[] = {64, 34, 25, 12, 22, 11, 90};
+    int arr2[] = {64, 34, 25, 12, 22, 11, 90};
+    int n1 = sizeof(arr1) / sizeof(arr1[0]);
+    int n2 = sizeof(arr2) / sizeof(arr2[0]);
+
+    printf("--- Testing Bubble Sort ---\n");
+    print_array("Original", arr1, n1);
+    bubble_sort(arr1, n1);
+    print_array("Sorted  ", arr1, n1);
+
+    printf("\n--- Testing Selection Sort ---\n");
+    print_array("Original", arr2, n2);
+    selection_sort(arr2, n2);
+    print_array("Sorted  ", arr2, n2);
+
     return 0;
 }
