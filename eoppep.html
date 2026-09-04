@@ -1,32 +1,30 @@
-<!-- exam question 119 -->
 <!DOCTYPE html>
-<html lang="el">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Πίνακας Αριθμών</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 <body>
-
-<script>
-    let counter = 1;
-    let html = "<table border='1' cellpadding='4' style='margin: 0 auto; text-align: center;'>";
-
-    for (let i = 0; i < 7; i++) {
-        html += "<tr>";
-        for (let j = 0; j < 6; j++) {
-            if (counter % 7 === 0) {
-                html += `<td><b style="color: red;">${counter}</b></td>`;
-            } else {
-                html += `<td>${counter}</td>`;
-            }
-            counter++;
-        }
-        html += "</tr>";
-    }
-
-    html += "</table>";
-    document.write(html);
-</script>
-
+    <table height="200" width="500" border="1">
+        <tr>
+            <td width="500" align="cente" valign="top">Ιανουάριος</td>
+            <td width="500" align="cente" valign="top">1</td>
+            <td width="500"></td>
+            <td width="500"></td>
+        </tr>
+        <tr>
+            <td align="center" valign="top">Φεβρουάριος</td>
+            <td></td>
+            <td align="center" valign="top">2</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td align="center" valign="top">Μάρτιος</td>
+            <td align="center" valign="top"></td>
+            <td align="center" valign="top"></td>
+            <td align="center" valign="top">3</td>
+        </tr>
+    </table>
 </body>
 </html>
