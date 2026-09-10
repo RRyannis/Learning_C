@@ -341,44 +341,92 @@
 // }
 
 
+// #include <stdio.h>
+
+// #define MAX 100
+
+// int queue[MAX];
+// int front = 0, rear = -1, count = 0;
+
+// void enqueue(int value)
+// {
+//     if (count == MAX) {
+//         printf("Queue full\n");
+//         return;
+//     }
+//     rear = (rear + 1) % MAX;
+//     queue[rear] = value;
+//     count++;
+// }
+
+// int dequeue(void)
+// {
+//     if (count == 0) {
+//         printf("Queue empty\n");
+//         return -1;
+//     }
+//     int value = queue[front];
+//     front = (front + 1) % MAX;
+//     count--;
+//     return value;
+// }
+
+// int main(void)
+// {
+//     enqueue(10);
+//     enqueue(20);
+//     enqueue(30);
+
+//     printf("%d\n", dequeue());   /* 10 */
+//     printf("%d\n", dequeue());   /* 20 */
+
+//     return 0;
+// }
+
+
 #include <stdio.h>
+#include <stdlib.h>
 
-#define MAX 100
+struct TreeNode {
+    int value;
+    struct TreeNode *left;
+    struct TreeNode *right;
+};
 
-int queue[MAX];
-int front = 0, rear = -1, count = 0;
-
-void enqueue(int value)
+struct TreeNode *insert(struct TreeNode *root, int value)
 {
-    if (count == MAX) {
-        printf("Queue full\n");
-        return;
+    if (root == NULL) {
+        struct TreeNode *node = malloc(sizeof(struct TreeNode));
+        node->value = value;
+        node->left = node->right = NULL;
+        return node;
     }
-    rear = (rear + 1) % MAX;
-    queue[rear] = value;
-    count++;
+    if (value < root->value)
+        root->left = insert(root->left, value);
+    else
+        root->right = insert(root->right, value);
+    return root;
 }
 
-int dequeue(void)
+void inorder(struct TreeNode *root)
 {
-    if (count == 0) {
-        printf("Queue empty\n");
-        return -1;
-    }
-    int value = queue[front];
-    front = (front + 1) % MAX;
-    count--;
-    return value;
+    if (root == NULL)
+        return;
+    inorder(root->left);
+    printf("%d ", root->value);
+    inorder(root->right);
 }
 
 int main(void)
 {
-    enqueue(10);
-    enqueue(20);
-    enqueue(30);
+    struct TreeNode *root = NULL;
+    int values[] = {5, 3, 8, 1, 4, 7, 9};
 
-    printf("%d\n", dequeue());   /* 10 */
-    printf("%d\n", dequeue());   /* 20 */
+    for (int i = 0; i < 7; i++)
+        root = insert(root, values[i]);
+
+    inorder(root);   /* prints sorted: 1 3 4 5 7 8 9 */
+    printf("\n");
 
     return 0;
 }
