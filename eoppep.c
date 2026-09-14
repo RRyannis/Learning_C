@@ -489,4 +489,4 @@ int main(void)
     printf("index: %d\n", binary_search(arr, n, 4));   /* -1 */
 
     return 0;
-}
+} 
