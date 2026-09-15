@@ -1,54 +1,46 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-// Linear Search
-int linearSearch(int arr[], int size, int target) {
-    for (int i = 0; i < size; i++) {
-        if (arr[i] == target) {
-            return i;  // return the index
-        }
+struct TreeNode {
+    int value;
+    struct TreeNode *left;
+    struct TreeNode *right;
+};
+
+struct TreeNode *insert(struct TreeNode *root, int value)
+{
+    if (root == NULL) {
+        struct TreeNode *node = malloc(sizeof(struct TreeNode));
+        node->value = value;
+        node->left = node->right = NULL;
+        return node;
     }
-
-    return -1; // not found
-}
-
-// Bubble Sort
-void bubbleSort(int arr[], int size) {
-    for (int i = 0; i < size - 1; i++) {
-        for (int j = 0; j < size - i - 1; j++) {
-
-            if (arr[j] > arr[j + 1]) {
-                // Swap
-                int temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
-            }
-        }
-    }
-}
-
-int main() {
-
-    // DATA STRUCTURE: Array
-    int numbers[] = {5, 2, 8, 1, 9};
-    int size = 5;
-
-    // ALGORITHM: Searching
-    int target = 8;
-    int position = linearSearch(numbers, size, target);
-
-    if (position != -1)
-        printf("Found %d at index %d\n", target, position);
+    if (value < root->value)
+        root->left = insert(root->left, value);
     else
-        printf("Not found\n");
+        root->right = insert(root->right, value);
+    return root;
+}
 
-    // ALGORITHM: Sorting
-    bubbleSort(numbers, size);
+void inorder(struct TreeNode *root)
+{
+    if (root == NULL)
+        return;
+    inorder(root->left);
+    printf("%d ", root->value);
+    inorder(root->right);
+}
 
-    printf("Sorted array: ");
+int main(void)
+{
+    struct TreeNode *root = NULL;
+    int values[] = {5, 3, 8, 1, 4, 7, 9};
 
-    for (int i = 0; i < size; i++) {
-        printf("%d ", numbers[i]);
-    }
+    for (int i = 0; i < 7; i++)
+        root = insert(root, values[i]);
+
+    inorder(root);   /* prints sorted: 1 3 4 5 7 8 9 */
+    printf("\n");
 
     return 0;
 }
