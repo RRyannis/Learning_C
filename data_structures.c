@@ -45,53 +45,165 @@
 //     return 0;
 // }
 
+// #include <stdio.h>
+// #include <stdlib.h>
+
+// struct Node {
+//     int data;
+//     struct Node *next;
+// };
+
+// struct Node *push(struct Node *head, int value)
+// {
+//     struct Node *new_node = malloc(sizeof(struct Node));
+//     new_node->data = value;
+//     new_node->next = head;   
+//     return new_node;        
+// }
+
+// void print_list(struct Node *head)
+// {
+//     struct Node *current = head;
+//     while (current != NULL) {
+//         printf("%d -> ", current->data);
+//         current = current->next;
+//     }
+//     printf("NULL\n");
+// }
+
+// void free_list(struct Node *head)
+// {
+//     struct Node *tmp;
+//     while (head != NULL) {
+//         tmp = head;
+//         head = head->next;
+//         free(tmp);
+//     }
+// }
+
+// int main(void)
+// {
+//     struct Node *head = NULL;
+
+//     head = push(head, 3);
+//     head = push(head, 2);
+//     head = push(head, 1);
+
+//     print_list(head);  
+
+//     free_list(head);
+
+//     return 0;
+// }
+
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Node {
-    int data;
-    struct Node *next;
+#define MAX_VERTICES 10
+
+
+struct AdjNode {
+    int vertex;
+    struct AdjNode *next;
 };
 
-struct Node *push(struct Node *head, int value)
+struct Graph {
+    struct AdjNode *adjLists[MAX_VERTICES];   
+    int numVertices;
+};
+
+struct Graph *createGraph(int vertices)
 {
-    struct Node *new_node = malloc(sizeof(struct Node));
-    new_node->data = value;
-    new_node->next = head;   
-    return new_node;        
+    struct Graph *g = malloc(sizeof(struct Graph));
+    g->numVertices = vertices;
+    for (int i = 0; i < vertices; i++)
+        g->adjLists[i] = NULL;   
+    return g;
 }
 
-void print_list(struct Node *head)
+void addEdge(struct Graph *g, int src, int dest)
 {
-    struct Node *current = head;
-    while (current != NULL) {
-        printf("%d -> ", current->data);
-        current = current->next;
-    }
-    printf("NULL\n");
+    
+    struct AdjNode *newNode = malloc(sizeof(struct AdjNode));
+    newNode->vertex = dest;
+    newNode->next = g->adjLists[src];
+    g->adjLists[src] = newNode;
+
+    
+    newNode = malloc(sizeof(struct AdjNode));
+    newNode->vertex = src;
+    newNode->next = g->adjLists[dest];
+    g->adjLists[dest] = newNode;
 }
 
-void free_list(struct Node *head)
+void printGraph(struct Graph *g)
 {
-    struct Node *tmp;
-    while (head != NULL) {
-        tmp = head;
-        head = head->next;
-        free(tmp);
+    for (int v = 0; v < g->numVertices; v++) {
+        struct AdjNode *temp = g->adjLists[v];
+        printf("Vertex %d: ", v);
+        while (temp != NULL) {
+            printf("%d -> ", temp->vertex);
+            temp = temp->next;
+        }
+        printf("NULL\n");
     }
+}
+
+
+void bfs(struct Graph *g, int startVertex)
+{
+    int visited[MAX_VERTICES] = {0};
+    int queue[MAX_VERTICES];
+    int front = 0, rear = 0;
+
+    visited[startVertex] = 1;
+    queue[rear++] = startVertex;
+
+    printf("BFS from %d: ", startVertex);
+    while (front < rear) {
+        int current = queue[front++];
+        printf("%d ", current);
+
+        struct AdjNode *temp = g->adjLists[current];
+        while (temp != NULL) {
+            if (!visited[temp->vertex]) {
+                visited[temp->vertex] = 1;
+                queue[rear++] = temp->vertex;
+            }
+            temp = temp->next;
+        }
+    }
+    printf("\n");
+}
+
+void freeGraph(struct Graph *g)
+{
+    for (int v = 0; v < g->numVertices; v++) {
+        struct AdjNode *temp = g->adjLists[v];
+        while (temp != NULL) {
+            struct AdjNode *toFree = temp;
+            temp = temp->next;
+            free(toFree);
+        }
+    }
+    free(g);
 }
 
 int main(void)
 {
-    struct Node *head = NULL;
+    struct Graph *g = createGraph(5);
 
-    head = push(head, 3);
-    head = push(head, 2);
-    head = push(head, 1);
+    addEdge(g, 0, 1);
+    addEdge(g, 0, 4);
+    addEdge(g, 1, 2);
+    addEdge(g, 1, 3);
+    addEdge(g, 1, 4);
+    addEdge(g, 2, 3);
+    addEdge(g, 3, 4);
 
-    print_list(head);  
+    printGraph(g);
+    bfs(g, 0);
 
-    free_list(head);
-
+    freeGraph(g);
     return 0;
 }
