@@ -1,29 +1,55 @@
-//problem 283 single move zeroes
+//problem 53 maximum subarray
 #include <stdio.h>
-    
-void moveZeroes(int* nums, int numsSize) {
+int maxSubArray(int* nums, int numsSize) {
+    int currentSum = 0;
+    int bsf = nums[0];
 
-    int writeIndex = 0;
-    for (int readIndex = 0; readIndex < numsSize; readIndex++) {
-        if (nums[readIndex] != 0) {
-            nums[writeIndex] = nums[readIndex];
-            writeIndex++;
+    for (int i = 0; i < numsSize; i++) {
+        if (currentSum + nums[i] < nums[i]) {
+            currentSum = nums[i];
+        } else {
+            currentSum += nums[i];
+        }
+        if (currentSum > bsf){
+            bsf = currentSum;
         }
     }
-    for (int i = writeIndex; i < numsSize; i ++) {
-        nums[i] = 0;
-    }
-
+    return bsf;
 }
 int main(void) {
-    int nums[] = {0,4,6,2,0,4,0};
+    int nums[] = {-2,1,-3,4,-1,2,1,-5,4};
     int size = sizeof(nums)/sizeof(nums[0]);
-    moveZeroes(nums, size);
-    for (int i = 0; i < size; i++) {
-        printf("%d ", nums[i]);
-    }
+    int result = maxSubArray(nums, size);
+    printf("%d \n", result);
+
     return 0;
 }
+//problem 283 single move zeroes
+// #include <stdio.h>
+    
+// void moveZeroes(int* nums, int numsSize) {
+
+//     int writeIndex = 0;
+//     for (int readIndex = 0; readIndex < numsSize; readIndex++) {
+//         if (nums[readIndex] != 0) {
+//             nums[writeIndex] = nums[readIndex];
+//             writeIndex++;
+//         }
+//     }
+//     for (int i = writeIndex; i < numsSize; i ++) {
+//         nums[i] = 0;
+//     }
+
+// }
+// int main(void) {
+//     int nums[] = {0,4,6,2,0,4,0};
+//     int size = sizeof(nums)/sizeof(nums[0]);
+//     moveZeroes(nums, size);
+//     for (int i = 0; i < size; i++) {
+//         printf("%d ", nums[i]);
+//     }
+//     return 0;
+// }
 
 // //problem 136 single number
 // #include <stdio.h>
