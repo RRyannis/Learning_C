@@ -1,29 +1,95 @@
-//problem 53 maximum subarray
+//problem 20 valid parentheses
 #include <stdio.h>
-int maxSubArray(int* nums, int numsSize) {
-    int currentSum = 0;
-    int bsf = nums[0];
+#include <string.h>
+bool isValid(char* s)
+{
+    int n = strlen(s);
 
-    for (int i = 0; i < numsSize; i++) {
-        if (currentSum + nums[i] < nums[i]) {
-            currentSum = nums[i];
-        } else {
-            currentSum += nums[i];
+    char stack[n];
+    int top = -1;
+
+    for (int i = 0; i < n; i++)
+    {
+        if (s[i] == '(' || s[i] == '[' || s[i] == '{')
+        {
+            stack[++top] = s[i];
         }
-        if (currentSum > bsf){
-            bsf = currentSum;
+        else
+        {
+            if (top == -1)
+                return false;
+
+            char opening = stack[top--];
+
+            if (s[i] == ')' && opening != '(')
+                return false;
+
+            if (s[i] == ']' && opening != '[')
+                return false;
+
+            if (s[i] == '}' && opening != '{')
+                return false;
         }
     }
-    return bsf;
+
+    return top == -1;
 }
 int main(void) {
-    int nums[] = {-2,1,-3,4,-1,2,1,-5,4};
-    int size = sizeof(nums)/sizeof(nums[0]);
-    int result = maxSubArray(nums, size);
-    printf("%d \n", result);
+    
+    
+     char* tests[] = {
+        "()",
+        "()[]{}",
+        "(]",
+        "([)]",
+        "{[]}",
+        "(((",
+        ")))",
+        "",
+        "{[()]}"
+    };
+
+    int numberOfTests = sizeof(tests) / sizeof(tests[0]);
+
+    for (int i = 0; i < numberOfTests; i++) {
+
+        printf("\"%s\" -> ", tests[i]);
+
+        if (isValid(tests[i])) {
+            printf("true\n");
+        } else {
+            printf("false\n");
+        }
+    }
 
     return 0;
 }
+//problem 53 maximum subarray
+// #include <stdio.h>
+// int maxSubArray(int* nums, int numsSize) {
+//     int currentSum = 0;
+//     int bsf = nums[0];
+
+//     for (int i = 0; i < numsSize; i++) {
+//         if (currentSum + nums[i] < nums[i]) {
+//             currentSum = nums[i];
+//         } else {
+//             currentSum += nums[i];
+//         }
+//         if (currentSum > bsf){
+//             bsf = currentSum;
+//         }
+//     }
+//     return bsf;
+// }
+// int main(void) {
+//     int nums[] = {-2,1,-3,4,-1,2,1,-5,4};
+//     int size = sizeof(nums)/sizeof(nums[0]);
+//     int result = maxSubArray(nums, size);
+//     printf("%d \n", result);
+
+//     return 0;
+// }
 //problem 283 single move zeroes
 // #include <stdio.h>
     
