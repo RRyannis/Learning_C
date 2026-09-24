@@ -1,69 +1,95 @@
-//problem 20 valid parentheses
+//problem 35 search insert position
 #include <stdio.h>
-#include <string.h>
-bool isValid(char* s)
-{
-    int n = strlen(s);
+int searchInsert(int* nums, int numsSize, int target) {
+    int low = 0;
+    int high = numsSize - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
 
-    char stack[n];
-    int top = -1;
-
-    for (int i = 0; i < n; i++)
-    {
-        if (s[i] == '(' || s[i] == '[' || s[i] == '{')
-        {
-            stack[++top] = s[i];
+        if(nums[mid] == target) {
+            return mid;
         }
-        else
-        {
-            if (top == -1)
-                return false;
-
-            char opening = stack[top--];
-
-            if (s[i] == ')' && opening != '(')
-                return false;
-
-            if (s[i] == ']' && opening != '[')
-                return false;
-
-            if (s[i] == '}' && opening != '{')
-                return false;
+        if (nums[mid] < target) {
+            low = mid + 1;
+        } else {
+            high = mid-1;
         }
     }
-
-    return top == -1;
+    return low;
 }
 int main(void) {
-    
-    
-     char* tests[] = {
-        "()",
-        "()[]{}",
-        "(]",
-        "([)]",
-        "{[]}",
-        "(((",
-        ")))",
-        "",
-        "{[()]}"
-    };
-
-    int numberOfTests = sizeof(tests) / sizeof(tests[0]);
-
-    for (int i = 0; i < numberOfTests; i++) {
-
-        printf("\"%s\" -> ", tests[i]);
-
-        if (isValid(tests[i])) {
-            printf("true\n");
-        } else {
-            printf("false\n");
-        }
-    }
-
-    return 0;
+    int arr[] = { 1, 3, 5, 6 };
+    int x = 2;
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int result = searchInsert(arr, n, x);
+    printf("%d \n",result);
 }
+//problem 20 valid parentheses
+// #include <stdio.h>
+// #include <string.h>
+// bool isValid(char* s)
+// {
+//     int n = strlen(s);
+
+//     char stack[n];
+//     int top = -1;
+
+//     for (int i = 0; i < n; i++)
+//     {
+//         if (s[i] == '(' || s[i] == '[' || s[i] == '{')
+//         {
+//             stack[++top] = s[i];
+//         }
+//         else
+//         {
+//             if (top == -1)
+//                 return false;
+
+//             char opening = stack[top--];
+
+//             if (s[i] == ')' && opening != '(')
+//                 return false;
+
+//             if (s[i] == ']' && opening != '[')
+//                 return false;
+
+//             if (s[i] == '}' && opening != '{')
+//                 return false;
+//         }
+//     }
+
+//     return top == -1;
+// }
+// int main(void) {
+    
+    
+//      char* tests[] = {
+//         "()",
+//         "()[]{}",
+//         "(]",
+//         "([)]",
+//         "{[]}",
+//         "(((",
+//         ")))",
+//         "",
+//         "{[()]}"
+//     };
+
+//     int numberOfTests = sizeof(tests) / sizeof(tests[0]);
+
+//     for (int i = 0; i < numberOfTests; i++) {
+
+//         printf("\"%s\" -> ", tests[i]);
+
+//         if (isValid(tests[i])) {
+//             printf("true\n");
+//         } else {
+//             printf("false\n");
+//         }
+//     }
+
+//     return 0;
+// }
 //problem 53 maximum subarray
 // #include <stdio.h>
 // int maxSubArray(int* nums, int numsSize) {
