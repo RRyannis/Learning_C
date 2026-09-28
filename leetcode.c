@@ -1,33 +1,66 @@
-// problem 69 sqrt(x)
+//problem 125 palindrome
 #include <stdio.h>
-int mySqrt(int x) {
-    int mid = 0;
-    int low = 0;
-    int high = x;
-    int answer = 0;
-    while(low <= high) {
-        mid = low + (high - low) / 2;
+#include <stdbool.h>
+#include <ctype.h>
+#include <string.h>
 
-        if (mid * mid <= x) {
-            
-            answer = mid;
-            low = mid + 1;
+bool isPalindrome(char* s) {
+    int left = 0;
+    int right = strlen(s) - 1;
 
-        } else {
-            high = mid -1;
-        }
+    while (left < right) {
+        while (left < right && !isalnum((unsigned char)s[left]))
+            left++;
+        while (left < right && !isalnum((unsigned char)s[right]))
+            right--;
+
+        if (tolower((unsigned char)s[left]) != tolower((unsigned char)s[right]))
+            return false;
+
+        left++;
+        right--;
     }
-    return answer;
+    return true;
 }
 
 int main(void) {
-    int x = 8;
-    int result = 0;
-    result = mySqrt(x);
-    printf("%d \n", result);
-
+    printf("%d\n", isPalindrome("A man, a plan, a canal: Panama"));
+    printf("%d\n", isPalindrome("race a car"));
+    printf("%d\n", isPalindrome(" "));
+    printf("%d\n", isPalindrome("0P"));
     return 0;
 }
+
+// problem 69 sqrt(x)
+// #include <stdio.h>
+// int mySqrt(int x) {
+//     int mid = 0;
+//     int low = 0;
+//     int high = x;
+//     int answer = 0;
+//     while(low <= high) {
+//         mid = low + (high - low) / 2;
+
+//         if (mid * mid <= x) {
+            
+//             answer = mid;
+//             low = mid + 1;
+
+//         } else {
+//             high = mid -1;
+//         }
+//     }
+//     return answer;
+// }
+
+// int main(void) {
+//     int x = 8;
+//     int result = 0;
+//     result = mySqrt(x);
+//     printf("%d \n", result);
+
+//     return 0;
+// }
 
 //problem 704 binary search
 // #include <stdio.h>
