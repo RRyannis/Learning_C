@@ -1,35 +1,67 @@
-//problem 125 palindrome
+//problem 169 
 #include <stdio.h>
-#include <stdbool.h>
-#include <ctype.h>
-#include <string.h>
 
-bool isPalindrome(char* s) {
-    int left = 0;
-    int right = strlen(s) - 1;
+int majorityElement(int* nums, int numsSize) {
+    int candidate = nums[0];
+    int count = 1;
 
-    while (left < right) {
-        while (left < right && !isalnum((unsigned char)s[left]))
-            left++;
-        while (left < right && !isalnum((unsigned char)s[right]))
-            right--;
-
-        if (tolower((unsigned char)s[left]) != tolower((unsigned char)s[right]))
-            return false;
-
-        left++;
-        right--;
+    for (int i = 1; i < numsSize; i++) {
+        if (count == 0) {
+            candidate = nums[i];
+            count = 1;
+        } else if (nums[i] == candidate) {
+            count++;
+        } else {
+            count--;
+        }
     }
-    return true;
+    return candidate;
 }
 
 int main(void) {
-    printf("%d\n", isPalindrome("A man, a plan, a canal: Panama"));
-    printf("%d\n", isPalindrome("race a car"));
-    printf("%d\n", isPalindrome(" "));
-    printf("%d\n", isPalindrome("0P"));
+    int nums1[] = {2, 2, 1, 1, 1, 2, 2};
+    printf("%d\n", majorityElement(nums1, 7));
+
+    int nums2[] = {3, 2, 3};
+    printf("%d\n", majorityElement(nums2, 3));
+
     return 0;
 }
+
+
+
+//problem 125 palindrome
+// #include <stdio.h>
+// #include <stdbool.h>
+// #include <ctype.h>
+// #include <string.h>
+
+// bool isPalindrome(char* s) {
+//     int left = 0;
+//     int right = strlen(s) - 1;
+
+//     while (left < right) {
+//         while (left < right && !isalnum((unsigned char)s[left]))
+//             left++;
+//         while (left < right && !isalnum((unsigned char)s[right]))
+//             right--;
+
+//         if (tolower((unsigned char)s[left]) != tolower((unsigned char)s[right]))
+//             return false;
+
+//         left++;
+//         right--;
+//     }
+//     return true;
+// }
+
+// int main(void) {
+//     printf("%d\n", isPalindrome("A man, a plan, a canal: Panama"));
+//     printf("%d\n", isPalindrome("race a car"));
+//     printf("%d\n", isPalindrome(" "));
+//     printf("%d\n", isPalindrome("0P"));
+//     return 0;
+// }
 
 // problem 69 sqrt(x)
 // #include <stdio.h>
