@@ -1,32 +1,55 @@
-//problem 169 
+//power of three
 #include <stdio.h>
+#include <stdbool.h>
 
-int majorityElement(int* nums, int numsSize) {
-    int candidate = nums[0];
-    int count = 1;
+bool isPowerOfThree(int n) {
+    if (n <= 0)
+        return false;
 
-    for (int i = 1; i < numsSize; i++) {
-        if (count == 0) {
-            candidate = nums[i];
-            count = 1;
-        } else if (nums[i] == candidate) {
-            count++;
-        } else {
-            count--;
-        }
+    while (n % 3 == 0) {
+        n /= 3;
     }
-    return candidate;
+    return n == 1;
 }
 
 int main(void) {
-    int nums1[] = {2, 2, 1, 1, 1, 2, 2};
-    printf("%d\n", majorityElement(nums1, 7));
-
-    int nums2[] = {3, 2, 3};
-    printf("%d\n", majorityElement(nums2, 3));
-
+    printf("%d\n", isPowerOfThree(27));
+    printf("%d\n", isPowerOfThree(0));
+    printf("%d\n", isPowerOfThree(9));
+    printf("%d\n", isPowerOfThree(45));
+    printf("%d\n", isPowerOfThree(1));
     return 0;
 }
+
+// //problem 169 
+// #include <stdio.h>
+
+// int majorityElement(int* nums, int numsSize) {
+//     int candidate = nums[0];
+//     int count = 1;
+
+//     for (int i = 1; i < numsSize; i++) {
+//         if (count == 0) {
+//             candidate = nums[i];
+//             count = 1;
+//         } else if (nums[i] == candidate) {
+//             count++;
+//         } else {
+//             count--;
+//         }
+//     }
+//     return candidate;
+// }
+
+// int main(void) {
+//     int nums1[] = {2, 2, 1, 1, 1, 2, 2};
+//     printf("%d\n", majorityElement(nums1, 7));
+
+//     int nums2[] = {3, 2, 3};
+//     printf("%d\n", majorityElement(nums2, 3));
+
+//     return 0;
+// }
 
 
 
