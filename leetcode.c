@@ -1,25 +1,144 @@
-//power of three
+//problem 215 Kth Largest Element in an Array
+
+//option 1 fails 3 cases
+// #include <stdio.h>
+// int findKthLargest(int* nums, int numsSize, int k) {
+//     int low = 0;
+//     int high = numsSize - 1;
+//     return quickSelect(nums, low, high, k, numsSize);
+    
+// }
+
+// int swap(int *a, int *b) {
+//     int temp = *a;
+//     *a = *b;
+//     *b = temp;
+// }
+// int partition(int *nums, int low, int high) {
+
+//     int randIndex = low + rand() % (high - low + 1);
+//     swap(&nums[randIndex], &nums[high]);
+
+//     int pivot = nums[high];
+//     int i = low - 1;
+
+//     for (int j = low; j < high; j++) {
+//         if (nums[j] < pivot) {
+//             i++;
+//             swap(&nums[i], &nums[j]);
+//         }
+//     }
+//     swap(&nums[i + 1], &nums[high]);
+//     return i + 1;
+// }
+// int quickSelect(int *nums, int low, int high, int k, int numsSize) {
+//     int piv = partition(nums, low, high);
+//     if (piv == (numsSize - k)) {
+//         return nums[piv];
+//     } else if (piv > (numsSize-k)) {
+//         return quickSelect(nums, low, piv - 1, k, numsSize);
+//     } else {
+//         return quickSelect(nums, piv + 1, high, k, numsSize);
+//     }
+// }
+
+// option 2 passes all, with some troubleshooting through glm 5-3
+#include <stdlib.h>   /* rand() */
 #include <stdio.h>
-#include <stdbool.h>
+#include <time.h>
 
-bool isPowerOfThree(int n) {
-    if (n <= 0)
-        return false;
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
 
-    while (n % 3 == 0) {
-        n /= 3;
+/* Hoare partition: on return,
+   nums[low..j]   <= pivot
+   nums[j+1..high] >= pivot
+   Note: j is NOT the final sorted position of any element. */
+int partition(int *nums, int low, int high) {
+    swap(&nums[low], &nums[low + rand() % (high - low + 1)]); /* pivot goes to LOW */
+    int pivot = nums[low];
+    int i = low - 1;
+    int j = high + 1;
+
+    while (1) {
+        do { i++; } while (nums[i] < pivot);
+        do { j--; } while (nums[j] > pivot);
+        if (i >= j) return j;
+        swap(&nums[i], &nums[j]);
     }
-    return n == 1;
+}
+
+int quickSelect(int *nums, int low, int high, int target) {
+    if (low == high) return nums[low];           /* base case changed */
+    int j = partition(nums, low, high);
+    if (target <= j)                             /* '<=', not '=='    */
+        return quickSelect(nums, low, j, target);/* j stays inside    */
+    return quickSelect(nums, j + 1, high, target);
+}
+
+int findKthLargest(int *nums, int numsSize, int k) {
+    return quickSelect(nums, 0, numsSize - 1, numsSize - k);
+}
+static void fill(int *a, int n) {
+    a[0] = 5; a[1] = 4; a[2] = 3; a[3] = 2; a[4] = 1;
+    for (int i = 5; i < n; i++) a[i] = 1;
 }
 
 int main(void) {
-    printf("%d\n", isPowerOfThree(27));
-    printf("%d\n", isPowerOfThree(0));
-    printf("%d\n", isPowerOfThree(9));
-    printf("%d\n", isPowerOfThree(45));
-    printf("%d\n", isPowerOfThree(1));
+    srand((unsigned) time(NULL));
+
+    int a1[] = {3, 2, 1, 5, 6, 4};
+    printf("test 1: got %d, want 5\n", findKthLargest(a1, 6, 2));
+
+    int a2[] = {3, 2, 3, 1, 2, 4, 5, 5, 6};
+    printf("test 2: got %d, want 4\n", findKthLargest(a2, 9, 4));
+
+    int a3[] = {7, 7, 7, 7, 7};
+    printf("test 3: got %d, want 7\n", findKthLargest(a3, 5, 2));
+
+    int n = 100000;
+    int *big = malloc(n * sizeof(int));
+
+    clock_t t0 = clock();
+    fill(big, n);
+    printf("test 4 (k = n-1): got %d, want 1  [%.3fs]\n",
+           findKthLargest(big, n, n - 1),
+           (double)(clock() - t0) / CLOCKS_PER_SEC);
+
+    t0 = clock();
+    fill(big, n);   /* refill: quickSelect rearranges the array in place */
+    printf("test 5 (k = 1):   got %d, want 5  [%.3fs]\n",
+           findKthLargest(big, n, 1),
+           (double)(clock() - t0) / CLOCKS_PER_SEC);
+
+    free(big);
     return 0;
 }
+//power of three
+// #include <stdio.h>
+// #include <stdbool.h>
+
+// bool isPowerOfThree(int n) {
+//     if (n <= 0)
+//         return false;
+
+//     while (n % 3 == 0) {
+//         n /= 3;
+//     }
+//     return n == 1;
+// }
+
+// int main(void) {
+//     printf("%d\n", isPowerOfThree(27));
+//     printf("%d\n", isPowerOfThree(0));
+//     printf("%d\n", isPowerOfThree(9));
+//     printf("%d\n", isPowerOfThree(45));
+//     printf("%d\n", isPowerOfThree(1));
+//     return 0;
+// }
 
 // //problem 169 
 // #include <stdio.h>
