@@ -1,3 +1,32 @@
+//LeetCode 70 — Climbing Stairs
+/*You are climbing a staircase. It takes n steps to reach the top.
+
+Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?*/
+#include <stdio.h>
+
+int climbStairs(int n) {
+    if (n <= 2) {
+        return n;
+    }
+
+    int prev = 1;  
+    int curr = 2;
+    int temp;
+    for (int i = 3; i <= n; i++) {
+        temp = curr;
+        curr = curr + prev;
+        prev = temp;
+    }
+
+    return curr;
+}
+
+int main (void) {
+    int n = 9;
+    int result = climbStairs(n);
+    printf("%d", result);
+}
+
 //problem 215 Kth Largest Element in an Array
 
 //option 1 fails 3 cases
@@ -43,80 +72,80 @@
 // }
 
 // option 2 passes all, with some troubleshooting through glm 5-3
-#include <stdlib.h>   /* rand() */
-#include <stdio.h>
-#include <time.h>
+// #include <stdlib.h>   /* rand() */
+// #include <stdio.h>
+// #include <time.h>
 
-void swap(int *a, int *b) {
-    int temp = *a;
-    *a = *b;
-    *b = temp;
-}
+// void swap(int *a, int *b) {
+//     int temp = *a;
+//     *a = *b;
+//     *b = temp;
+// }
 
 /* Hoare partition: on return,
    nums[low..j]   <= pivot
    nums[j+1..high] >= pivot
    Note: j is NOT the final sorted position of any element. */
-int partition(int *nums, int low, int high) {
-    swap(&nums[low], &nums[low + rand() % (high - low + 1)]); /* pivot goes to LOW */
-    int pivot = nums[low];
-    int i = low - 1;
-    int j = high + 1;
+// int partition(int *nums, int low, int high) {
+//     swap(&nums[low], &nums[low + rand() % (high - low + 1)]); /* pivot goes to LOW */
+//     int pivot = nums[low];
+//     int i = low - 1;
+//     int j = high + 1;
 
-    while (1) {
-        do { i++; } while (nums[i] < pivot);
-        do { j--; } while (nums[j] > pivot);
-        if (i >= j) return j;
-        swap(&nums[i], &nums[j]);
-    }
-}
+//     while (1) {
+//         do { i++; } while (nums[i] < pivot);
+//         do { j--; } while (nums[j] > pivot);
+//         if (i >= j) return j;
+//         swap(&nums[i], &nums[j]);
+//     }
+// }
 
-int quickSelect(int *nums, int low, int high, int target) {
-    if (low == high) return nums[low];           /* base case changed */
-    int j = partition(nums, low, high);
-    if (target <= j)                             /* '<=', not '=='    */
-        return quickSelect(nums, low, j, target);/* j stays inside    */
-    return quickSelect(nums, j + 1, high, target);
-}
+// int quickSelect(int *nums, int low, int high, int target) {
+//     if (low == high) return nums[low];           /* base case changed */
+//     int j = partition(nums, low, high);
+//     if (target <= j)                             /* '<=', not '=='    */
+//         return quickSelect(nums, low, j, target);/* j stays inside    */
+//     return quickSelect(nums, j + 1, high, target);
+// }
 
-int findKthLargest(int *nums, int numsSize, int k) {
-    return quickSelect(nums, 0, numsSize - 1, numsSize - k);
-}
-static void fill(int *a, int n) {
-    a[0] = 5; a[1] = 4; a[2] = 3; a[3] = 2; a[4] = 1;
-    for (int i = 5; i < n; i++) a[i] = 1;
-}
+// int findKthLargest(int *nums, int numsSize, int k) {
+//     return quickSelect(nums, 0, numsSize - 1, numsSize - k);
+// }
+// static void fill(int *a, int n) {
+//     a[0] = 5; a[1] = 4; a[2] = 3; a[3] = 2; a[4] = 1;
+//     for (int i = 5; i < n; i++) a[i] = 1;
+// }
 
-int main(void) {
-    srand((unsigned) time(NULL));
+// int main(void) {
+//     srand((unsigned) time(NULL));
 
-    int a1[] = {3, 2, 1, 5, 6, 4};
-    printf("test 1: got %d, want 5\n", findKthLargest(a1, 6, 2));
+//     int a1[] = {3, 2, 1, 5, 6, 4};
+//     printf("test 1: got %d, want 5\n", findKthLargest(a1, 6, 2));
 
-    int a2[] = {3, 2, 3, 1, 2, 4, 5, 5, 6};
-    printf("test 2: got %d, want 4\n", findKthLargest(a2, 9, 4));
+//     int a2[] = {3, 2, 3, 1, 2, 4, 5, 5, 6};
+//     printf("test 2: got %d, want 4\n", findKthLargest(a2, 9, 4));
 
-    int a3[] = {7, 7, 7, 7, 7};
-    printf("test 3: got %d, want 7\n", findKthLargest(a3, 5, 2));
+//     int a3[] = {7, 7, 7, 7, 7};
+//     printf("test 3: got %d, want 7\n", findKthLargest(a3, 5, 2));
 
-    int n = 100000;
-    int *big = malloc(n * sizeof(int));
+//     int n = 100000;
+//     int *big = malloc(n * sizeof(int));
 
-    clock_t t0 = clock();
-    fill(big, n);
-    printf("test 4 (k = n-1): got %d, want 1  [%.3fs]\n",
-           findKthLargest(big, n, n - 1),
-           (double)(clock() - t0) / CLOCKS_PER_SEC);
+//     clock_t t0 = clock();
+//     fill(big, n);
+//     printf("test 4 (k = n-1): got %d, want 1  [%.3fs]\n",
+//            findKthLargest(big, n, n - 1),
+//            (double)(clock() - t0) / CLOCKS_PER_SEC);
 
-    t0 = clock();
-    fill(big, n);   /* refill: quickSelect rearranges the array in place */
-    printf("test 5 (k = 1):   got %d, want 5  [%.3fs]\n",
-           findKthLargest(big, n, 1),
-           (double)(clock() - t0) / CLOCKS_PER_SEC);
+//     t0 = clock();
+//     fill(big, n);   /* refill: quickSelect rearranges the array in place */
+//     printf("test 5 (k = 1):   got %d, want 5  [%.3fs]\n",
+//            findKthLargest(big, n, 1),
+//            (double)(clock() - t0) / CLOCKS_PER_SEC);
 
-    free(big);
-    return 0;
-}
+//     free(big);
+//     return 0;
+// }
 //power of three
 // #include <stdio.h>
 // #include <stdbool.h>
