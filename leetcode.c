@@ -1,31 +1,63 @@
+//Leetcode 198. House Robber
+/*You are a professional robber planning to rob houses along a street.
+ Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that 
+ adjacent houses have security systems connected and it will automatically 
+ contact the police if two adjacent houses were broken into on the same night.
+
+Given an integer array nums representing the amount of money of each house,
+ return the maximum amount of money you can rob tonight without alerting the police.*/
+#include <stdio.h>
+int rob(int* nums, int numsSize) {
+    int prevMax, currMax, newMax;
+    if (numsSize == 1) return nums[numsSize - 1];
+    if (numsSize == 2) {
+        return (nums[0] > nums[1]) ? nums[0] : nums[1]; 
+    }
+    prevMax = nums[0];
+    currMax = (nums[0] > nums[1]) ? nums[0] : nums[1];
+    for (int i = 2; i <= numsSize - 1; i++) {
+        newMax = (nums[i] + prevMax > currMax) ? nums[i] + prevMax : currMax;
+        prevMax = currMax;
+        currMax = newMax;
+    }
+    return currMax;
+}
+int main(void) {
+    int nums[] = {2,7,9,3,1};
+    int res = rob(nums, 5);
+    printf("%d \n", res);
+
+    return 0;
+}
+
 //LeetCode 70 — Climbing Stairs
 /*You are climbing a staircase. It takes n steps to reach the top.
 
 Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?*/
-#include <stdio.h>
+// #include <stdio.h>
 
-int climbStairs(int n) {
-    if (n <= 2) {
-        return n;
-    }
+// int climbStairs(int n) {
+//     if (n <= 2) {
+//         return n;
+//     }
 
-    int prev = 1;  
-    int curr = 2;
-    int temp;
-    for (int i = 3; i <= n; i++) {
-        temp = curr;
-        curr = curr + prev;
-        prev = temp;
-    }
+//     int prev = 1;  
+//     int curr = 2;
+//     int temp;
+//     for (int i = 3; i <= n; i++) {
+//         temp = curr;
+//         curr = curr + prev;
+//         prev = temp;
+//     }
 
-    return curr;
-}
+//     return curr;
+// }
 
-int main (void) {
-    int n = 9;
-    int result = climbStairs(n);
-    printf("%d", result);
-}
+// int main (void) {
+//     int n = 9;
+//     int result = climbStairs(n);
+//     printf("%d", result);
+// }
 
 //problem 215 Kth Largest Element in an Array
 
