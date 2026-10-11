@@ -104,3 +104,68 @@ int main(void) {
 
 //     return 0;
 // }
+
+
+#include <stdio.h>
+#include <string.h>
+
+
+struct Point {
+    int x;
+    int y;
+};
+
+void printPoint(struct Point p) {
+    printf("(%d, %d)\n", p.x, p.y);
+}
+
+
+struct Rectangle {
+    struct Point topLeft;
+    struct Point bottomRight;
+};
+
+int rectangleArea(struct Rectangle r) {
+    int width = r.bottomRight.x - r.topLeft.x;
+    int height = r.bottomRight.y - r.topLeft.y;
+    return width * height;
+}
+
+
+typedef struct {
+    char name[50];
+    int age;
+} Person;
+
+
+void haveBirthday(Person *p) {
+    p->age++;   
+}
+
+int main(void) {
+    struct Point p1 = {3, 4};
+    printPoint(p1);
+
+    p1.x = 10;
+    printPoint(p1);
+
+    struct Rectangle rect = {{0, 0}, {5, 3}};
+    printf("Area: %d\n", rectangleArea(rect));
+
+    Person alice;
+    strcpy(alice.name, "Alice");
+    alice.age = 29;
+    printf("%s is %d\n", alice.name, alice.age);
+
+    haveBirthday(&alice);
+    printf("%s is now %d\n", alice.name, alice.age);
+
+    Person people[2] = {
+        {"Bob", 40},
+        {"Carol", 35}
+    };
+    for (int i = 0; i < 2; i++)
+        printf("%s: %d\n", people[i].name, people[i].age);
+
+    return 0;
+}
