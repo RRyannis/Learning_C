@@ -58,45 +58,9 @@ exit(EXIT_SUCCESS);
 
 //     return 0;
 // }
-// //creating a struct node
-// struct node {
-//     int value;
-//     struct node *next;
-// };
-
-// int main (void) {
-//     struct node test;
-//     test.value = 0;
-
-//     struct node test2;
-//     test2.value = 1;
-
-//     test.next = &test2;
-
-//     printf("%d \n", test.value);
-//     printf("%d \n", test.next->value);
-//     printf("%d \n", test2.value);
 
 
 
-// }
-//more struct stuff
-// struct sigrecord {
-//     int signum;
-//     char signame[20];
-//     char sigdesc[100];
-// } sigline, *sigline_p;
-
-// int main(void) {
-
-//     sigline.signum = 5;
-//     strcpy(sigline.signame, "SIGINT");
-//     strcpy(sigline.sigdesc, "Interrupt from keyboard");
-
-//     sigline_p->signum = 5;
-//     strcpy(sigline_p->signame, "SIGINT");
-//     strcpy(sigline_p->sigdesc, "Interrupt from keyboard");
-// }
 
 
 // //listing 2-6 and exercise 2-1
