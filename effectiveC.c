@@ -1,97 +1,30 @@
+//compile with gcc -Wall -Wextra -std=c11 -g -O0 effectiveC.c -o efC
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#ifdef DMALLOC
-#include "dmalloc.h"
-#endif
-void usage(char *msg) {
-fprintf(stderr, "%s", msg);
-free(msg);
-return;
+
+void swap(int *a, int *b){
+    int temp = *a;
+    *a = *b;
+    *b = temp;
 }
-int main(int argc, char *argv[]) {
-if (argc != 3 && argc != 4) {
-/* the error message won't be more than 80 chars */
-char *errmsg = (char *)malloc(80);
-sprintf(
-errmsg,
-"Sorry %s,\nUsage: caesar secret_file keys_file [output_file]\n",
-getenv("USER")
-);
-usage(errmsg);
-free(errmsg);
-exit(EXIT_FAILURE);
+void swap_any(void *a, void *b, size_t sz) {
+    unsigned char temp[sz];
+    memcpy(temp, a, sz);
+    memcpy(a, b, sz);
+    memcpy(b, temp, sz);
 }
-exit(EXIT_SUCCESS);
+int main(void) {
+    int    xi = 10,  yi = 20;
+    double xd = 1.5, yd = 2.5;
+    char   xs[] = "hello", ys[] = "world";
+
+    swap_any(&xi, &yi, sizeof(int));
+    swap_any(&xd, &yd, sizeof(double));
+    swap_any(&xs, &ys, sizeof(xs));
+
+    printf("xi=%d yi=%d\n", xi, yi);    // xi=20 yi=10
+    printf("xd=%f yd=%f\n", xd, yd);    // xd=2.500000 yd=1.500000
+    printf("xs=%s ys=%s\n", xs, ys);    // xs=world ys=hello
+    return 0;
 }
-
-
-
-// int main(void)
-// {
-//     int n = 5;  // how many integers (could be decided at runtime!)
-
-//     // Asking the system for enough memory to hold 5 ints.
-//     // malloc returns a pointer to the start of that memory block.
-//     int *numbers = malloc(n * sizeof(int));
-
-//     //ALWAYS check whether the allocation succeeded.
-//     //If malloc fails (e.g., out of memory), it returns NULL.
-//     if (numbers == NULL) {
-//         printf("Memory allocation failed!\n");
-//         return 1;
-//     }
-
-//     //Use memory like a regular array.
-//     for (int i = 0; i < n; i++) {
-//         numbers[i] = i * 10;
-//     }
-
-//     //Print the values back out.
-//     for (int i = 0; i < n; i++) {
-//         printf("numbers[%d] = %d\n", i, numbers[i]);
-//     }
-
-//     // Give the memory back when you're done with it.
-//     free(numbers);
-//     numbers = NULL;  // good habit: avoids accidentally reusing a freed pointer
-
-//     return 0;
-// }
-
-
-
-
-
-// //listing 2-6 and exercise 2-1
-// static unsigned int counter = 0;
-
-// void increment(void) {
-//     // static unsigned int counter = 0;
-//     counter++;
-//     //printf("%d ", counter);
-// }
-// unsigned int retrieve(void) {
-//     return counter;
-// }
-// int main(void) {
-//     for (int i = 0; i < 5; i++) {
-//     increment();
-//     }
-//     printf("\ncounter is currently %u\n", retrieve());
-//     return 0;
-// }
-// void swap(int *pa, int *pb) {
-//     int temp = *pa;
-//     *pa = *pb;
-//     *pb = temp;
-// }
-// int main(void) {
-//    int a = 6, b = 9;
-//    swap(&a, &b);
-//    printf("a = %d, b = %d \n", a, b);
-   
-
-//     return 0;
-// }
-
