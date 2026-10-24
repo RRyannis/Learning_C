@@ -39,12 +39,16 @@
 // struct S *good_s_ptr = (struct S *)good_buff; // correct pointer alignment
 // }
 
-void func(int arr[5]);
+//working with pointers
 int main(void) {
-unsigned int i = 0;
-unsigned int j = 0;
-int arr[3][5];
-func(arr[i]);
-int x = arr[i][j];
-return 0;
+    int * pc, c;
+    c = 21;
+    pc = &c;
+    printf("Address of c: %p \n", pc);
+    printf("Address of c: %p \n", &c);
+    printf("Value of c: %d \n", c);
+    printf("Value of c: %d \n", *pc);
+
+
+
 }
