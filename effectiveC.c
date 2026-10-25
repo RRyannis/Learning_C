@@ -50,5 +50,17 @@ int main(void) {
     printf("Value of c: %d \n", *pc);
 
 
+    int numbers[] = {5, 23, 675, 1231};
+    for(int i = 0; i < 4; i++) {
+        printf("%p \n", &numbers[i]);
+    }
+
+    int num = 21;
+    printf("%zu \n", sizeof(num));
+
+    int nums[] = {5, 23, 675, 1231};
+    printf("%zu \n", sizeof(nums));
+
+
 
 }
