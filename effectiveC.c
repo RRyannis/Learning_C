@@ -69,5 +69,11 @@ int main(void) {
     printf("%d\n", *(p + 2)); // 75
     printf("%d\n", *(p + 3)); // 100
 
+    int var = 42;
+    int *ptr = &var;
+    printf("Variable 'var' value: %d \n", var);
+    printf("Variable 'var' address: %p \n", &var);
+    printf("Pointer 'ptr' address (value of ptr): %p \n", ptr);
+    printf("Value accessed via pointer (*ptr): %d", *ptr);
 
 }
