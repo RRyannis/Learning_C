@@ -40,40 +40,68 @@
 // }
 
 //working with pointers
-int main(void) {
-    int * pc, c;
-    c = 21;
-    pc = &c;
-    printf("Address of c: %p \n", pc);
-    printf("Address of c: %p \n", &c);
-    printf("Value of c: %d \n", c);
-    printf("Value of c: %d \n", *pc);
+// int main(void) {
+//     int * pc, c;
+//     c = 21;
+//     pc = &c;
+//     printf("Address of c: %p \n", pc);
+//     printf("Address of c: %p \n", &c);
+//     printf("Value of c: %d \n", c);
+//     printf("Value of c: %d \n", *pc);
 
 
-    int numbers[] = {5, 23, 675, 1231};
-    for(int i = 0; i < 4; i++) {
-        printf("%p \n", &numbers[i]);
+//     int numbers[] = {5, 23, 675, 1231};
+//     for(int i = 0; i < 4; i++) {
+//         printf("%p \n", &numbers[i]);
+//     }
+
+//     int num = 21;
+//     printf("%zu \n", sizeof(num));
+
+//     int nums[] = {5, 23, 675, 1231};
+//     printf("%zu \n", sizeof(nums));
+
+//     int myNumbers[4] = {25, 50, 75, 100};
+//     int *p = myNumbers;  // points to myNumbers[0]
+
+//     printf("%d\n", *p);       // 25
+//     printf("%d\n", *(p + 1)); // 50
+//     printf("%d\n", *(p + 2)); // 75
+//     printf("%d\n", *(p + 3)); // 100
+
+//     int var = 42;
+//     int *ptr = &var;
+//     printf("Variable 'var' value: %d \n", var);
+//     printf("Variable 'var' address: %p \n", &var);
+//     printf("Pointer 'ptr' address (value of ptr): %p \n", ptr);
+//     printf("Value accessed via pointer (*ptr): %d", *ptr);
+
+// }
+
+//effective c chapter 2 page 34 exercise 2
+
+#include <stdio.h>
+
+#define NUM_FUNCS 3
+
+void printOne(void) { printf("1\n"); }
+void printTwo(void) { printf("2\n"); }
+void printThree(void) { printf("3\n"); }
+
+void (*ptr[NUM_FUNCS])(void) = {printOne, printTwo, printThree};
+
+void acceptNum(int num) {
+    if (num < 0 || num >= NUM_FUNCS) {
+        printf("Enter a number from 0 to %d\n", NUM_FUNCS - 1);
+        return;
     }
+    ptr[num]();
+}
 
-    int num = 21;
-    printf("%zu \n", sizeof(num));
-
-    int nums[] = {5, 23, 675, 1231};
-    printf("%zu \n", sizeof(nums));
-
-    int myNumbers[4] = {25, 50, 75, 100};
-    int *p = myNumbers;  // points to myNumbers[0]
-
-    printf("%d\n", *p);       // 25
-    printf("%d\n", *(p + 1)); // 50
-    printf("%d\n", *(p + 2)); // 75
-    printf("%d\n", *(p + 3)); // 100
-
-    int var = 42;
-    int *ptr = &var;
-    printf("Variable 'var' value: %d \n", var);
-    printf("Variable 'var' address: %p \n", &var);
-    printf("Pointer 'ptr' address (value of ptr): %p \n", ptr);
-    printf("Value accessed via pointer (*ptr): %d", *ptr);
-
+int main(void) {
+    acceptNum(1);
+    acceptNum(3);
+    acceptNum(-1);
+    acceptNum(0);
+    return 0;
 }
