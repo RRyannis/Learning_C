@@ -80,28 +80,83 @@
 
 //effective c chapter 2 page 34 exercise 2
 
+// #include <stdio.h>
+
+// #define NUM_FUNCS 3
+
+// void printOne(void) { printf("1\n"); }
+// void printTwo(void) { printf("2\n"); }
+// void printThree(void) { printf("3\n"); }
+
+// void (*ptr[NUM_FUNCS])(void) = {printOne, printTwo, printThree};
+
+// void acceptNum(int num) {
+//     if (num < 0 || num >= NUM_FUNCS) {
+//         printf("Enter a number from 0 to %d\n", NUM_FUNCS - 1);
+//         return;
+//     }
+//     ptr[num]();
+// }
+
+// int main(void) {
+//     acceptNum(1);
+//     acceptNum(3);
+//     acceptNum(-1);
+//     acceptNum(0);
+//     return 0;
+// }
+
+
+//pointers and text
 #include <stdio.h>
 
-#define NUM_FUNCS 3
 
-void printOne(void) { printf("1\n"); }
-void printTwo(void) { printf("2\n"); }
-void printThree(void) { printf("3\n"); }
-
-void (*ptr[NUM_FUNCS])(void) = {printOne, printTwo, printThree};
-
-void acceptNum(int num) {
-    if (num < 0 || num >= NUM_FUNCS) {
-        printf("Enter a number from 0 to %d\n", NUM_FUNCS - 1);
-        return;
+int count_occurrences(const char *s, char ch) {
+    int count = 0;
+    while(*s != '\0'){
+        if(*s == ch) count++;
+        s++;
     }
-    ptr[num]();
+    return count;
 }
 
+//alternative
+// int count_occurrences(const char *s, char ch) {
+//     int count = 0;
+//     for (; *s; s++) {
+//         if (*s == ch) {
+//             count++;
+//         }
+//     }
+//     return count;
+// }
+
 int main(void) {
-    acceptNum(1);
-    acceptNum(3);
-    acceptNum(-1);
-    acceptNum(0);
+    
+    //method 1
+    //char greeting[] = "Hello";
+    // int i = 0;
+    // while(greeting[i] != '\0') {
+    //     printf("%c\n", greeting[i]);
+    //     i++;
+    // }
+
+    //method 2
+    // const char *s = "mississippi";
+    // char t = 's';
+    // int count = 0;
+    // while(*s != '\0') {
+    //     if (*s == t) count++;
+    //     printf("%c\n", *s);
+    //     s++;
+    // }
+    // printf("%d\n", count);
+    const char *text = "mississippi";
+    printf("%d\n", count_occurrences(text, 's'));   // 4
+    printf("%d\n", count_occurrences(text, 'z'));   // 0
+    printf("%d\n", count_occurrences("", 'a'));    // 0
     return 0;
+    
+    
+    
 }
