@@ -107,7 +107,7 @@
 // }
 
 
-//pointers and text
+//pointers and text 2a
 #include <stdio.h>
 
 
@@ -159,4 +159,115 @@ int main(void) {
     
     
     
+}
+
+//2b tba: write the two functions
+/*
+ * ============================================================================
+ * LESSON 2b — Arrays vs. pointers
+ * ============================================================================
+ *
+ * CONCEPT
+ * -------
+ * Three real differences between `int arr[5]` and `int *p = arr`:
+ *
+ *   1. sizeof gives different answers:
+ *        sizeof(arr)  → 20  (5 ints × 4 bytes)
+ *        sizeof(p)    → 8   (the pointer itself, on 64-bit)
+ *
+ *   2. arr is NOT assignable; p IS:
+ *        arr = x;    // compile error
+ *        p   = x;    // fine
+ *
+ *   3. When passed to a function, an array "decays" into a pointer
+ *      to its first element. Inside the function, it's just a pointer —
+ *      the array's size information is LOST.
+ *      That's why every array-taking function needs a separate size_t n.
+ *
+ * ============================================================================
+ * EXERCISE
+ * ============================================================================
+ *
+ * Write two functions and a main that calls them:
+ */
+
+#include <stdio.h>
+#include <stddef.h>
+
+/* TODO: print sizeof(a), sizeof(a[0]), and n */
+void take_array(int a[], size_t n) {
+    /* ... */
+}
+
+/* TODO: print sizeof(p), sizeof(p[0]), and n */
+void take_ptr(int *p, size_t n) {
+    /* ... */
+}
+
+int main(void) {
+    int arr[5] = {10, 20, 30, 40, 50};
+    int *p = arr;
+
+    printf("sizeof(arr)    = %zu\n", sizeof(arr));
+    printf("sizeof(p)      = %zu\n", sizeof(p));
+    printf("sizeof(arr[0]) = %zu\n", sizeof(arr[0]));
+    printf("&arr    = %p\n", (void*)&arr);
+    printf("&arr[0] = %p\n", (void*)&arr[0]);
+
+    take_array(arr, 5);
+    take_ptr(p, 5);
+
+    return 0;
+}
+
+/*
+ * ============================================================================
+ * NOTES ON THE FORMAT SPECIFIERS (so you understand why)
+ * ============================================================================
+ *   %zu  — correct format for size_t (what sizeof returns)
+ *   %p   — for printing pointers; expects void*, hence the casts
+ *
+ * ============================================================================
+ * COMPILE & RUN
+ * ============================================================================
+ *   gcc -Wall -Wextra -std=c11 -g -O0 effectiveC.c -o efC
+ *   ./efC
+ *
+ * ============================================================================
+ * BRING BACK
+ * ============================================================================
+ *   1. Your source code (both functions + main).
+ *   2. The exact output of running it.
+ *   3. One-paragraph answer in your own words:
+ *
+ *        "When you pass an array to a function, what type does the function
+ *         actually receive? What information is lost in that transition,
+ *         and why does this make C arrays 'second-class' compared to
+ *         Java arrays?"
+ *
+ *   4. BONUS (optional): in main, do &arr and &arr[0] print the same
+ *      address? If yes, are they really 'the same thing'? What's actually
+ *      different about them? (Hint: think about their TYPES, not their
+ *      numeric value.)
+ *
+ * ============================================================================
+ */
+
+void take_array(int a[], size_t n);
+void take_ptr(int *p, size_t n);
+int main(void) {
+    int arr[5] = {10, 20, 30, 40, 50};
+    int *p = arr;
+
+    // Print these in main:
+    printf("sizeof(arr) = %zu\n", sizeof(arr));
+    printf("sizeof(p)   = %zu\n", sizeof(p));
+    printf("sizeof(arr[0]) = %zu\n", sizeof(arr[0]));
+    printf("&arr   = %p\n", (void*)&arr);
+    printf("&arr[0] = %p\n", (void*)&arr[0]);
+
+    take_array(arr, 5);
+    take_ptr(p, 5);
+
+    return 0;
 }
