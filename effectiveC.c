@@ -196,12 +196,12 @@ int main(void) {
 
 /* TODO: print sizeof(a), sizeof(a[0]), and n */
 void take_array(int a[], size_t n) {
-    /* ... */
+    
 }
 
 /* TODO: print sizeof(p), sizeof(p[0]), and n */
 void take_ptr(int *p, size_t n) {
-    /* ... */
+    
 }
 
 int main(void) {
@@ -253,21 +253,3 @@ int main(void) {
  * ============================================================================
  */
 
-void take_array(int a[], size_t n);
-void take_ptr(int *p, size_t n);
-int main(void) {
-    int arr[5] = {10, 20, 30, 40, 50};
-    int *p = arr;
-
-    // Print these in main:
-    printf("sizeof(arr) = %zu\n", sizeof(arr));
-    printf("sizeof(p)   = %zu\n", sizeof(p));
-    printf("sizeof(arr[0]) = %zu\n", sizeof(arr[0]));
-    printf("&arr   = %p\n", (void*)&arr);
-    printf("&arr[0] = %p\n", (void*)&arr[0]);
-
-    take_array(arr, 5);
-    take_ptr(p, 5);
-
-    return 0;
-}
