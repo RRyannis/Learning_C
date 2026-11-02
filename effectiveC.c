@@ -196,13 +196,18 @@ int main(void) {
 
 /* TODO: print sizeof(a), sizeof(a[0]), and n */
 void take_array(int a[], size_t n) {
-    
+    printf("take_array: sizeof(a)    = %zu\n", sizeof(a));
+    printf("take_array: sizeof(a[0]) = %zu\n", sizeof(a[0]));
+    printf("take_array: n            = %zu\n", n);
 }
 
 /* TODO: print sizeof(p), sizeof(p[0]), and n */
 void take_ptr(int *p, size_t n) {
-    
+    printf("take_ptr:   sizeof(p)    = %zu\n", sizeof(p));
+    printf("take_ptr:   sizeof(p[0]) = %zu\n", sizeof(p[0]));
+    printf("take_ptr:   n            = %zu\n", n);
 }
+
 
 int main(void) {
     int arr[5] = {10, 20, 30, 40, 50};
