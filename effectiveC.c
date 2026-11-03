@@ -108,17 +108,17 @@
 
 
 //pointers and text 2a
-#include <stdio.h>
+// #include <stdio.h>
 
 
-int count_occurrences(const char *s, char ch) {
-    int count = 0;
-    while(*s != '\0'){
-        if(*s == ch) count++;
-        s++;
-    }
-    return count;
-}
+// int count_occurrences(const char *s, char ch) {
+//     int count = 0;
+//     while(*s != '\0'){
+//         if(*s == ch) count++;
+//         s++;
+//     }
+//     return count;
+// }
 
 //alternative
 // int count_occurrences(const char *s, char ch) {
@@ -131,35 +131,35 @@ int count_occurrences(const char *s, char ch) {
 //     return count;
 // }
 
-int main(void) {
+// int main(void) {
     
-    //method 1
-    //char greeting[] = "Hello";
-    // int i = 0;
-    // while(greeting[i] != '\0') {
-    //     printf("%c\n", greeting[i]);
-    //     i++;
-    // }
+//     method 1
+//     char greeting[] = "Hello";
+//     int i = 0;
+//     while(greeting[i] != '\0') {
+//         printf("%c\n", greeting[i]);
+//         i++;
+//     }
 
-    //method 2
-    // const char *s = "mississippi";
-    // char t = 's';
-    // int count = 0;
-    // while(*s != '\0') {
-    //     if (*s == t) count++;
-    //     printf("%c\n", *s);
-    //     s++;
-    // }
-    // printf("%d\n", count);
-    const char *text = "mississippi";
-    printf("%d\n", count_occurrences(text, 's'));   // 4
-    printf("%d\n", count_occurrences(text, 'z'));   // 0
-    printf("%d\n", count_occurrences("", 'a'));    // 0
-    return 0;
+//     method 2
+//     const char *s = "mississippi";
+//     char t = 's';
+//     int count = 0;
+//     while(*s != '\0') {
+//         if (*s == t) count++;
+//         printf("%c\n", *s);
+//         s++;
+//     }
+//     printf("%d\n", count);
+//     const char *text = "mississippi";
+//     printf("%d\n", count_occurrences(text, 's'));   // 4
+//     printf("%d\n", count_occurrences(text, 'z'));   // 0
+//     printf("%d\n", count_occurrences("", 'a'));    // 0
+//     return 0;
     
     
     
-}
+// }
 
 //2b tba: write the two functions
 /*
@@ -191,70 +191,111 @@ int main(void) {
  * Write two functions and a main that calls them:
  */
 
-#include <stdio.h>
-#include <stddef.h>
+// #include <stdio.h>
+// #include <stddef.h>
 
 /* TODO: print sizeof(a), sizeof(a[0]), and n */
-void take_array(int a[], size_t n) {
-    printf("take_array: sizeof(a)    = %zu\n", sizeof(a));
-    printf("take_array: sizeof(a[0]) = %zu\n", sizeof(a[0]));
-    printf("take_array: n            = %zu\n", n);
-}
+// void take_array(int a[], size_t n) {
+//     printf("take_array: sizeof(a)    = %zu\n", sizeof(a));
+//     printf("take_array: sizeof(a[0]) = %zu\n", sizeof(a[0]));
+//     printf("take_array: n            = %zu\n", n);
+// }
 
 /* TODO: print sizeof(p), sizeof(p[0]), and n */
-void take_ptr(int *p, size_t n) {
-    printf("take_ptr:   sizeof(p)    = %zu\n", sizeof(p));
-    printf("take_ptr:   sizeof(p[0]) = %zu\n", sizeof(p[0]));
-    printf("take_ptr:   n            = %zu\n", n);
-}
+// void take_ptr(int *p, size_t n) {
+//     printf("take_ptr:   sizeof(p)    = %zu\n", sizeof(p));
+//     printf("take_ptr:   sizeof(p[0]) = %zu\n", sizeof(p[0]));
+//     printf("take_ptr:   n            = %zu\n", n);
+// }
 
+
+// int main(void) {
+//     int arr[5] = {10, 20, 30, 40, 50};
+//     int *p = arr;
+
+//     printf("sizeof(arr)    = %zu\n", sizeof(arr));
+//     printf("sizeof(p)      = %zu\n", sizeof(p));
+//     printf("sizeof(arr[0]) = %zu\n", sizeof(arr[0]));
+//     printf("&arr    = %p\n", (void*)&arr);
+//     printf("&arr[0] = %p\n", (void*)&arr[0]);
+
+//     take_array(arr, 5);
+//     take_ptr(p, 5);
+
+//     return 0;
+// }
+
+/*
+ *   %zu  — correct format for size_t (what sizeof returns)
+ *   %p   — for printing pointers; expects void*, hence the casts
+ */
+
+
+ //Lesson 2c
+#include <stdio.h>
+#include <ctype.h>
+
+//  void reverse(int *arr, size_t n) {
+//     int *lo = arr;
+//     int *hi = arr + n - 1;
+//     while (lo < hi) {
+//         int temp = *lo;
+//         *lo = *hi;
+//         *hi = temp;
+//         *lo++;
+//         *hi--;
+//     }
+//  }
+
+//remove all 0s from arr, return new length
+// site_t compact(int *arr, size_t n) {
+//     int *write = arr;
+//     for (int *read = arr; read < arr + read; read++) {
+//         if (*read != 0) {
+//             *write++ = *read;
+//         }
+//     }
+//     return (size_t)(write - arr);
+// }
+
+//pointer to pointer
+// void skip_whitespace(char **pp) {
+//     while (**pp == ' ' || **pp == '\t') {
+//         (*pp)++;
+//     }
+// }
+//char *s = "   hello";
+//skip_whitespace(&s);    // pass the ADDRESS of s, so the function can change s
+// now s points at 'h'
+#include <stdio.h>
+#include <ctype.h>
+
+char *trim_in_place(char *s);
 
 int main(void) {
-    int arr[5] = {10, 20, 30, 40, 50};
-    int *p = arr;
+    /* IMPORTANT: must be a writable array, not a string literal. */
+    char buf1[] = "hello   ";      /* 3 trailing spaces */
+    char buf2[] = "world";         /* no trailing whitespace */
+    char buf3[] = "   ";           /* all whitespace */
+    char buf4[] = "";              /* empty string */
 
-    printf("sizeof(arr)    = %zu\n", sizeof(arr));
-    printf("sizeof(p)      = %zu\n", sizeof(p));
-    printf("sizeof(arr[0]) = %zu\n", sizeof(arr[0]));
-    printf("&arr    = %p\n", (void*)&arr);
-    printf("&arr[0] = %p\n", (void*)&arr[0]);
-
-    take_array(arr, 5);
-    take_ptr(p, 5);
-
+    printf("[%s]\n", trim_in_place(buf1));   /* [hello] */
+    printf("[%s]\n", trim_in_place(buf2));   /* [world] */
+    printf("[%s]\n", trim_in_place(buf3));   /* [] */
+    printf("[%s]\n", trim_in_place(buf4));   /* [] */
     return 0;
 }
 
-/*
- * ============================================================================
- * NOTES ON THE FORMAT SPECIFIERS (so you understand why)
- * ============================================================================
- *   %zu  — correct format for size_t (what sizeof returns)
- *   %p   — for printing pointers; expects void*, hence the casts
- *
- * ============================================================================
- * COMPILE & RUN
- * ============================================================================
- *   gcc -Wall -Wextra -std=c11 -g -O0 effectiveC.c -o efC
- *   ./efC
- *
- * ============================================================================
- * BRING BACK
- * ============================================================================
- *   1. Your source code (both functions + main).
- *   2. The exact output of running it.
- *   3. One-paragraph answer in your own words:
- *
- *        "When you pass an array to a function, what type does the function
- *         actually receive? What information is lost in that transition,
- *         and why does this make C arrays 'second-class' compared to
- *         Java arrays?"
- *
- *   4. BONUS (optional): in main, do &arr and &arr[0] print the same
- *      address? If yes, are they really 'the same thing'? What's actually
- *      different about them? (Hint: think about their TYPES, not their
- *      numeric value.)
- *
- * ============================================================================
- */
+char *trim_in_place(char *s) {
+    char *p = s;
+    while (*p) {
+        p++;
+    }
+    p--;
+    while (p > s && isspace(*(p - 1))) {
+        p--;
+        *p = '\0';        
+    }
+    return s;
 
+}
